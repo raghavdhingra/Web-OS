@@ -1,0 +1,44 @@
+.taskbar-container {
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.6);
+  box-shadow: 0 0 7px 2px #0009;
+  font-size: 0.9rem;
+  padding: 0.4rem 0.5rem;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 0.5rem;
+}
+.right-task-item-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+.right-displayed-container {
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+.right-displayed-container-after {
+  content: "";
+  display: block;
+  background-color: #fff;
+  width: 125px;
+  height: 3px;
+  position: absolute;
+  border-radius: 10px;
+  transform: translateY(13px);
+}
+.right-task-item {
+  margin: 0 0.4rem;
+  display: inline-flex;
+}
+.drop-caret {
+  transition: 0.2s ease;
+  transform: translateY(-3px);
+}
+.drop-caret-up {
+  transform: translateY(-3px) rotate(180deg);
+}
+.charging-icon {
+  transform: translateY(-4px);
+}

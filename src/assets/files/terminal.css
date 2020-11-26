@@ -1,0 +1,60 @@
+.terminal-editable-container {
+  height: 100%;
+  width: 100%;
+  background-color: rgb(45, 9, 34);
+  color: #fff;
+  overflow-y: auto;
+  overflow-x: hidden;
+  font-size: 0.9rem;
+  cursor: text;
+}
+.terminal-editable-container::-webkit-scrollbar {
+  width: 5px;
+}
+.terminal-editable-container::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #888;
+}
+.terminal-green {
+  color: rgba(124, 227, 53);
+}
+.terminal-blue {
+  color: rgb(86, 137, 211);
+}
+.terminal-main-content {
+  margin: 0.5rem 0;
+}
+.terminal-text-editor {
+  padding: 0 0.5rem;
+}
+.terminal-text-editor:focus {
+  outline: none;
+}
+.terminal-red {
+  color: rgb(255, 0, 25);
+}
+.terminal-output {
+  margin: 0.3rem 0;
+  font-size: 0.9rem;
+  letter-spacing: 0.05rem;
+}
+.terminal-help-grid {
+  display: grid;
+  grid-template-columns: 0.7fr auto 2fr;
+  gap: 0.5rem;
+}
+.terminal-file-system-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(2, 1fr);
+}
+@media screen and (min-width: 500px) {
+  .terminal-file-system-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+@media screen and (min-width: 800px) {
+  .terminal-file-system-grid {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}

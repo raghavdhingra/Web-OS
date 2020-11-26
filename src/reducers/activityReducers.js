@@ -2,7 +2,7 @@ import * as actions from "../actions/types";
 
 const initialState = [];
 
-export default function (state = initialState, action) {
+const activityReducers = (state = initialState, action) => {
   const { type, payload } = action;
   switch (type) {
     case actions.CREATE_ACTIVITY: {
@@ -43,4 +43,6 @@ export default function (state = initialState, action) {
     default:
       return state;
   }
-}
+};
+
+export default activityReducers;

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import { connect } from "react-redux";
 import { changeBackImage } from "../../actions/desktopActions";
 import Taskbar from "./taskbar/taskbar";
@@ -13,14 +13,17 @@ import Back6 from "../../assets/background/wall-6.svg";
 import "../../assets/desktop/desktop.css";
 
 const Desktop = ({ brightness, background, changeBackImage }) => {
-  const backgroundArray = [
-    { img: Back1, cover: true },
-    { img: Back2, cover: true },
-    { img: Back3, cover: false },
-    { img: Back4, cover: true },
-    { img: Back5, cover: true },
-    { img: Back6, cover: false },
-  ];
+  const backgroundArray = useMemo(
+    () => [
+      { img: Back1, cover: true },
+      { img: Back2, cover: true },
+      { img: Back3, cover: false },
+      { img: Back4, cover: true },
+      { img: Back5, cover: true },
+      { img: Back6, cover: false },
+    ],
+    []
+  );
   useEffect(() => {
     const imgNum = parseInt(localStorage.getItem("backImage"));
     if (imgNum)

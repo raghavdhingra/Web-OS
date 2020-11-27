@@ -1,4 +1,4 @@
-// import * as actions from "../actions/types";
+import * as actions from "../actions/types";
 
 const initialState = [
   {
@@ -19,15 +19,16 @@ const initialState = [
 ];
 
 const fileSystemReducers = (state = initialState, action) => {
-  // const { type } = actions;
-  // switch (type) {
-  //   case actions: {
-  //     return state;
-  //   }
-  //   default:
-  //     return state;
-  // }
-  return state;
+  const { type, payload } = actions;
+  switch (type) {
+    case actions: {
+      const { something } = payload;
+      console.log(something);
+      return state;
+    }
+    default:
+      return state;
+  }
 };
 
 export default fileSystemReducers;

@@ -1,7 +1,10 @@
 import React, { useEffect, useState, useRef } from "react";
 import { connect } from "react-redux";
 import { removeActivity } from "../../../actions/activityActions";
-import { makeDirectoryAction } from "../../../actions/fileSystemActions";
+import {
+  makeDirectoryAction,
+  removeDirectoryAction,
+} from "../../../actions/fileSystemActions";
 import "../../../assets/files/terminal.css";
 
 const OutputDivision = ({ inputPath, command, error, success, startState }) => {
@@ -28,6 +31,7 @@ const TerminalWindow = ({
   activityList,
   removeActivity,
   makeDirectoryAction,
+  removeDirectoryAction,
 }) => {
   const printOutput = ({ inputPath, command, error, success, startState }) => {
     let outputCommand = (
@@ -202,11 +206,53 @@ const TerminalWindow = ({
         (path) => (curDir = curDir.find((system) => system.name === path).child)
       );
       let newFolderName = tokens[1];
+      let index = curDir.filter(
+        (system) => system.type === "folder" && system.name === newFolderName
+      );
+      if (index.length > 0)
+        return printOutput({
+          inputPath,
+          command,
+          error: "Folder with same name exist",
+        });
       makeDirectoryAction({ pathArray: pathArr, folderName: newFolderName });
       printOutput({ inputPath, command });
     }
   };
-  const removeDirectory = ({ command, tokens }) => {};
+  const removeDirectory = ({ command, tokens, isSudo }) => {
+    if (isSudo) tokens.shift();
+    if (tokens.length > 2)
+      return printOutput({
+        inputPath,
+        command,
+        error: "Folder name should not have space between them",
+      });
+    else if (tokens.length === 1)
+      return printOutput({
+        inputPath,
+        command,
+        error: "Please specify a folder name",
+      });
+    else {
+      let pathArr = inputPath.split("/").filter((path) => !!path);
+      let curDir = fileSystem;
+      pathArr.forEach(
+        (path) => (curDir = curDir.find((system) => system.name === path).child)
+      );
+      let newFolderName = tokens[1];
+      let index = curDir.filter(
+        (system) => system.type === "folder" && system.name === newFolderName
+      );
+      if (index.length === 0)
+        return printOutput({
+          inputPath,
+          command,
+          error: "Folder with the given name does not exist",
+        });
+      removeDirectoryAction({ pathArray: pathArr, folderName: newFolderName });
+      printOutput({ inputPath, command });
+    }
+  };
 
   const commandList = [
     {
@@ -330,4 +376,5 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   removeActivity,
   makeDirectoryAction,
+  removeDirectoryAction,
 })(TerminalWindow);

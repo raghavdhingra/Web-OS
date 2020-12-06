@@ -63,8 +63,8 @@ const TerminalWindow = ({
     setCommandOutput([<OutputDivision startState={true} />]);
 
   const echoOnScreen = ({ command, tokens, isSudo }) => {
-    tokens.shift();
     if (isSudo) tokens.shift();
+    tokens.shift();
     return printOutput({ inputPath, command, success: tokens.join(" ") });
   };
   const setInputPathConditionally = (pathArr) => {
@@ -74,48 +74,52 @@ const TerminalWindow = ({
   };
   const changeDirectory = ({ command, tokens, isSudo }) => {
     if (isSudo) tokens.shift();
-    if (tokens.length > 2) {
-      return printOutput({
-        inputPath,
-        command,
-        error: `"cd" command can't have more than 1 parameter`,
-      });
-    } else {
-      if (tokens[1] === "/") {
-        setInputPath("/");
-        return printOutput({ inputPath, command });
-      }
-      let fullPath = inputPath.split("/").filter((path) => !!path);
-      let givenDirList = tokens[1].split("/").filter((path) => !!path);
-      for (let i in givenDirList) {
-        if (givenDirList[i] === ".") break;
-        else if (givenDirList[i] === "..") {
-          if (fullPath.length) fullPath.pop();
-          else
+    try {
+      if (tokens.length > 2) {
+        return printOutput({
+          inputPath,
+          command,
+          error: `"cd" command can't have more than 1 parameter`,
+        });
+      } else {
+        if (tokens[1] === "/") {
+          setInputPath("/");
+          return printOutput({ inputPath, command });
+        }
+        let fullPath = inputPath.split("/").filter((path) => !!path);
+        let givenDirList = tokens[1].split("/").filter((path) => !!path);
+        for (let i in givenDirList) {
+          if (givenDirList[i] === ".") break;
+          else if (givenDirList[i] === "..") {
+            if (fullPath.length) fullPath.pop();
+            else
+              return printOutput({
+                inputPath,
+                command,
+                error: "Already on the base directory",
+              });
+          } else fullPath.push(givenDirList[i]);
+        }
+        let curDir = fileSystem;
+        for (let j in fullPath) {
+          try {
+            curDir = curDir.find(
+              (dir) => dir.name === fullPath[j] && dir.type === "folder"
+            );
+            curDir = curDir.child;
+          } catch (err) {
             return printOutput({
               inputPath,
               command,
-              error: "Already on the base directory",
+              error: "No such directory exists",
             });
-        } else fullPath.push(givenDirList[i]);
-      }
-      let curDir = fileSystem;
-      for (let j in fullPath) {
-        try {
-          curDir = curDir.find(
-            (dir) => dir.name === fullPath[j] && dir.type === "folder"
-          );
-          curDir = curDir.child;
-        } catch (err) {
-          return printOutput({
-            inputPath,
-            command,
-            error: "No such directory exists",
-          });
+          }
         }
+        setInputPathConditionally(fullPath);
+        return printOutput({ inputPath, command });
       }
-      setInputPathConditionally(fullPath);
-      return printOutput({ inputPath, command });
+    } catch (err) {
+      printOutput({ inputPath, command, error: "Please specify a folder" });
     }
   };
   const exitTerminal = ({ command, tokens }) => {
@@ -177,13 +181,19 @@ const TerminalWindow = ({
   const pwdCommand = ({ command }) =>
     printOutput({ inputPath, command, success: inputPath });
 
-  const makeDirectory = ({ command, tokens }) => {
-    if (tokens[0] === "sudo") tokens.shift();
+  const makeDirectory = ({ command, tokens, isSudo }) => {
+    if (isSudo) tokens.shift();
     if (tokens.length > 2)
       return printOutput({
         inputPath,
         command,
         error: "Folder name should not have space between them",
+      });
+    else if (tokens.length === 1)
+      return printOutput({
+        inputPath,
+        command,
+        error: "Please specify a folder name",
       });
     else {
       let pathArr = inputPath.split("/").filter((path) => !!path);
@@ -192,11 +202,11 @@ const TerminalWindow = ({
         (path) => (curDir = curDir.find((system) => system.name === path).child)
       );
       let newFolderName = tokens[1];
-      makeDirectoryAction();
-      console.log(curDir);
-      console.log(newFolderName);
+      makeDirectoryAction({ pathArray: pathArr, folderName: newFolderName });
+      printOutput({ inputPath, command });
     }
   };
+  const removeDirectory = ({ command, tokens }) => {};
 
   const commandList = [
     {
@@ -234,6 +244,12 @@ const TerminalWindow = ({
         "Make a directory within current folder | One parameter (required)",
     },
     {
+      invoke: "rmdir",
+      onActive: removeDirectory,
+      description:
+        "Remove a directory within current folder | One parameter (required)",
+    },
+    {
       invoke: "pwd",
       onActive: pwdCommand,
       description: "Returns the working directory of the terminal",
@@ -252,22 +268,19 @@ const TerminalWindow = ({
       let command = TextRef.current.innerText;
       setHistoryCommand([...historyCommands, command]);
       let tokens = command.trim().replace(/\s\s+/g, " ").split(" ");
-      if (tokens[0] === "sudo") alert("You are using sudo");
+      let isSudo = false;
+      if (tokens[0] === "sudo") isSudo = true;
       else {
         let commandObj = commandList.find(
           (com) => com.invoke === tokens[0].toLowerCase()
         );
-        if (commandObj) commandObj.onActive({ command, tokens });
-        else {
-          let outputComponent = (
-            <OutputDivision
-              inputPath={inputPath}
-              command={command}
-              error={`Error: "${tokens[0]}" is not a command`}
-            />
-          );
-          setCommandOutput([...commandOutput, outputComponent]);
-        }
+        if (commandObj) commandObj.onActive({ command, tokens, isSudo });
+        else
+          printOutput({
+            inputPath,
+            command,
+            error: `Error: "${tokens[0]}" is not a command`,
+          });
       }
       emptyTextRef();
     } else if (e.keyCode === 38) {
@@ -282,11 +295,8 @@ const TerminalWindow = ({
       TextRef.current.innerText = historyCommands[lastIndex - historyIndex];
     }
   };
+  useEffect(() => focusTextRef(), []);
 
-  useEffect(() => {
-    focusTextRef();
-  }, []);
-  // const checkCommand = () => {};
   return (
     <>
       <div className="terminal-editable-container" onClick={focusTextRef}>

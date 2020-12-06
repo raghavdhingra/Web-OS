@@ -10,3 +10,14 @@ export const makeDirectoryAction = (payload) => async (dispatch) => {
     console.log(err);
   }
 };
+
+export const removeDirectoryAction = (payload) => async (dispatch) => {
+  try {
+    dispatch({
+      type: actions.REMOVE_DIRECTORY_IN_SYSTEM,
+      payload,
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};

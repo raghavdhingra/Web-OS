@@ -199,6 +199,30 @@ const TerminalWindow = ({ fileSystem, activityList, removeActivity }) => {
     }
     return setCommandOutput([...commandOutput, outputCommand]);
   };
+  const pwdCommand = ({ command }) => {
+    let outputComponent = (
+      <OutputDivision
+        inputPath={inputPath}
+        command={command}
+        success={inputPath}
+      />
+    );
+    setCommandOutput([...commandOutput, outputComponent]);
+  };
+  const makeDirectory = ({ command, tokens }) => {
+    if (tokens[0] === "sudo") tokens.shift();
+    console.log(tokens);
+    if (tokens.length > 2) {
+      let outputComponent = (
+        <OutputDivision
+          inputPath={inputPath}
+          command={command}
+          error={"Folder name should not have space between name"}
+        />
+      );
+      setCommandOutput([...commandOutput, outputComponent]);
+    }
+  };
   const commandList = [
     {
       invoke: "help",
@@ -228,12 +252,17 @@ const TerminalWindow = ({ fileSystem, activityList, removeActivity }) => {
       description:
         "Change the directory of the terminal | One parameter (required)",
     },
-    // {
-    //   invoke: "pwd",
-    //   onActive: pwd,
-    //   description:
-    //     "Change the directory of the terminal | One parameter (required)",
-    // },
+    {
+      invoke: "mkdir",
+      onActive: makeDirectory,
+      description:
+        "Make a directory within current folder | One parameter (required)",
+    },
+    {
+      invoke: "pwd",
+      onActive: pwdCommand,
+      description: "Returns the working directory of the terminal",
+    },
     {
       invoke: "exit",
       onActive: exitTerminal,
@@ -248,15 +277,13 @@ const TerminalWindow = ({ fileSystem, activityList, removeActivity }) => {
       let command = TextRef.current.innerText;
       setHistoryCommand([...historyCommands, command]);
       let tokens = command.trim().replace(/\s\s+/g, " ").split(" ");
-      if (tokens[0] === "sudo") {
-        alert("You are using sudo");
-      } else {
+      if (tokens[0] === "sudo") alert("You are using sudo");
+      else {
         let commandObj = commandList.find(
           (com) => com.invoke === tokens[0].toLowerCase()
         );
-        if (commandObj) {
-          commandObj.onActive({ command, tokens });
-        } else {
+        if (commandObj) commandObj.onActive({ command, tokens });
+        else {
           let outputComponent = (
             <OutputDivision
               inputPath={inputPath}

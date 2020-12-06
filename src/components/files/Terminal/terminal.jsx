@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { connect } from "react-redux";
 import { removeActivity } from "../../../actions/activityActions";
+import { makeDirectoryAction } from "../../../actions/fileSystemActions";
 import "../../../assets/files/terminal.css";
 
 const OutputDivision = ({ inputPath, command, error, success, startState }) => {
@@ -22,7 +23,24 @@ const OutputDivision = ({ inputPath, command, error, success, startState }) => {
   );
 };
 
-const TerminalWindow = ({ fileSystem, activityList, removeActivity }) => {
+const TerminalWindow = ({
+  fileSystem,
+  activityList,
+  removeActivity,
+  makeDirectoryAction,
+}) => {
+  const printOutput = ({ inputPath, command, error, success, startState }) => {
+    let outputCommand = (
+      <OutputDivision
+        inputPath={inputPath}
+        command={command}
+        success={success}
+        error={error}
+        startState={startState}
+      />
+    );
+    setCommandOutput([...commandOutput, outputCommand]);
+  };
   const [inputPath, setInputPath] = useState("/");
   const [historyCommands, setHistoryCommand] = useState(["help"]);
   const [historyIndex, setHistoryIndex] = useState(0);
@@ -47,14 +65,7 @@ const TerminalWindow = ({ fileSystem, activityList, removeActivity }) => {
   const echoOnScreen = ({ command, tokens, isSudo }) => {
     tokens.shift();
     if (isSudo) tokens.shift();
-    let outputCommand = (
-      <OutputDivision
-        inputPath={inputPath}
-        command={command}
-        success={tokens.join(" ")}
-      />
-    );
-    setCommandOutput([...commandOutput, outputCommand]);
+    return printOutput({ inputPath, command, success: tokens.join(" ") });
   };
   const setInputPathConditionally = (pathArr) => {
     pathArr = pathArr.filter((system) => !!system);
@@ -64,21 +75,15 @@ const TerminalWindow = ({ fileSystem, activityList, removeActivity }) => {
   const changeDirectory = ({ command, tokens, isSudo }) => {
     if (isSudo) tokens.shift();
     if (tokens.length > 2) {
-      let outputCommand = (
-        <OutputDivision
-          inputPath={inputPath}
-          command={command}
-          error={`"cd" command can't have more than 1 parameter`}
-        />
-      );
-      return setCommandOutput([...commandOutput, outputCommand]);
+      return printOutput({
+        inputPath,
+        command,
+        error: `"cd" command can't have more than 1 parameter`,
+      });
     } else {
       if (tokens[1] === "/") {
         setInputPath("/");
-        let outputCommand = (
-          <OutputDivision inputPath={inputPath} command={command} />
-        );
-        return setCommandOutput([...commandOutput, outputCommand]);
+        return printOutput({ inputPath, command });
       }
       let fullPath = inputPath.split("/").filter((path) => !!path);
       let givenDirList = tokens[1].split("/").filter((path) => !!path);
@@ -86,16 +91,12 @@ const TerminalWindow = ({ fileSystem, activityList, removeActivity }) => {
         if (givenDirList[i] === ".") break;
         else if (givenDirList[i] === "..") {
           if (fullPath.length) fullPath.pop();
-          else {
-            let outputCommand = (
-              <OutputDivision
-                inputPath={inputPath}
-                command={command}
-                error="Already on the base directory"
-              />
-            );
-            return setCommandOutput([...commandOutput, outputCommand]);
-          }
+          else
+            return printOutput({
+              inputPath,
+              command,
+              error: "Already on the base directory",
+            });
         } else fullPath.push(givenDirList[i]);
       }
       let curDir = fileSystem;
@@ -106,33 +107,24 @@ const TerminalWindow = ({ fileSystem, activityList, removeActivity }) => {
           );
           curDir = curDir.child;
         } catch (err) {
-          let outputCommand = (
-            <OutputDivision
-              inputPath={inputPath}
-              command={command}
-              error="No such directory exists"
-            />
-          );
-          return setCommandOutput([...commandOutput, outputCommand]);
+          return printOutput({
+            inputPath,
+            command,
+            error: "No such directory exists",
+          });
         }
       }
       setInputPathConditionally(fullPath);
-      let outputCommand = (
-        <OutputDivision inputPath={inputPath} command={command} />
-      );
-      return setCommandOutput([...commandOutput, outputCommand]);
+      return printOutput({ inputPath, command });
     }
   };
   const exitTerminal = ({ command, tokens }) => {
     if (tokens.length > 1) {
-      let outputCommand = (
-        <OutputDivision
-          inputPath={inputPath}
-          command={command}
-          error={`"exit" command can't have more than 1 parameter`}
-        />
-      );
-      return setCommandOutput([...commandOutput, outputCommand]);
+      return printOutput({
+        inputPath,
+        command,
+        error: `"exit" command can't have more than 1 parameter`,
+      });
     }
     let activityIndex = activityList.findIndex(
       (activity) => activity.name === "Terminal"
@@ -151,25 +143,17 @@ const TerminalWindow = ({ fileSystem, activityList, removeActivity }) => {
         ))}
       </div>
     );
-    let outputCommand = (
-      <OutputDivision
-        inputPath={inputPath}
-        command={command}
-        success={childParameter}
-      />
-    );
-    return setCommandOutput([...commandOutput, outputCommand]);
+    return printOutput({ inputPath, command, success: childParameter });
   };
   const listInDirectory = ({ command }) => {
-    let pathArray = inputPath.split("/");
-    pathArray = pathArray.filter((paths) => !!paths);
-    let childParameter, outputCommand;
+    let pathArray = inputPath.split("/").filter((paths) => !!paths);
+    let childParameter;
     try {
       let currentDir = fileSystem;
-      for (let i in pathArray) {
-        currentDir = currentDir.find((system) => system.name === pathArray[i])
-          .child;
-      }
+      pathArray.forEach(
+        (path) =>
+          (currentDir = currentDir.find((system) => system.name === path).child)
+      );
       childParameter = (
         <div className="terminal-file-system-grid">
           {currentDir.map((system, index) => (
@@ -181,48 +165,39 @@ const TerminalWindow = ({ fileSystem, activityList, removeActivity }) => {
           ))}
         </div>
       );
-      outputCommand = (
-        <OutputDivision
-          inputPath={inputPath}
-          command={command}
-          success={childParameter}
-        />
-      );
+      return printOutput({ inputPath, command, success: childParameter });
     } catch (err) {
-      outputCommand = (
-        <OutputDivision
-          inputPath={inputPath}
-          command={command}
-          error={"No such directory exists"}
-        />
-      );
+      return printOutput({
+        inputPath,
+        command,
+        error: "No such directory exists",
+      });
     }
-    return setCommandOutput([...commandOutput, outputCommand]);
   };
-  const pwdCommand = ({ command }) => {
-    let outputComponent = (
-      <OutputDivision
-        inputPath={inputPath}
-        command={command}
-        success={inputPath}
-      />
-    );
-    setCommandOutput([...commandOutput, outputComponent]);
-  };
+  const pwdCommand = ({ command }) =>
+    printOutput({ inputPath, command, success: inputPath });
+
   const makeDirectory = ({ command, tokens }) => {
     if (tokens[0] === "sudo") tokens.shift();
-    console.log(tokens);
-    if (tokens.length > 2) {
-      let outputComponent = (
-        <OutputDivision
-          inputPath={inputPath}
-          command={command}
-          error={"Folder name should not have space between name"}
-        />
+    if (tokens.length > 2)
+      return printOutput({
+        inputPath,
+        command,
+        error: "Folder name should not have space between them",
+      });
+    else {
+      let pathArr = inputPath.split("/").filter((path) => !!path);
+      let curDir = fileSystem;
+      pathArr.forEach(
+        (path) => (curDir = curDir.find((system) => system.name === path).child)
       );
-      setCommandOutput([...commandOutput, outputComponent]);
+      let newFolderName = tokens[1];
+      makeDirectoryAction();
+      console.log(curDir);
+      console.log(newFolderName);
     }
   };
+
   const commandList = [
     {
       invoke: "help",
@@ -342,4 +317,7 @@ const mapStateToProps = (state) => ({
   fileSystem: state.fileSystemReducers,
   activityList: state.activityReducers,
 });
-export default connect(mapStateToProps, { removeActivity })(TerminalWindow);
+export default connect(mapStateToProps, {
+  removeActivity,
+  makeDirectoryAction,
+})(TerminalWindow);

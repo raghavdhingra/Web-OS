@@ -21,9 +21,8 @@ const initialState = [
 const fileSystemReducers = (state = initialState, action) => {
   const { type, payload } = actions;
   switch (type) {
-    case actions: {
-      const { something } = payload;
-      console.log(something);
+    case actions.MAKE_DIRECTORY_IN_SYSTEM: {
+      const { path, folderName } = payload;
       return state;
     }
     default:

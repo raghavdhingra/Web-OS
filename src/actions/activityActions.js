@@ -6,7 +6,15 @@ export const removeActivity = (payload) => async (dispatch) => {
       type: actions.UPDATE_ACTIVITY_TRIGGER,
       payload: { activityIndex: payload, isTriggered: true },
     });
+    await dispatch({
+      type: actions.TOGGLE_LOADING_ACTIVITY,
+      payload: { activityIndex: payload, isLoading: true },
+    });
     setTimeout(async () => {
+      await dispatch({
+        type: actions.TOGGLE_LOADING_ACTIVITY,
+        payload: { activityIndex: payload, isLoading: true },
+      });
       await dispatch({
         type: actions.REMOVE_ACTIVITY,
         payload: {
@@ -14,7 +22,7 @@ export const removeActivity = (payload) => async (dispatch) => {
         },
       });
       await dispatch({ type: actions.REMOVE_ACTIVITY_TRIGGER });
-    }, 50);
+    }, 100);
   } catch (err) {
     console.log(err);
   }

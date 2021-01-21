@@ -371,7 +371,7 @@ const TerminalWindow = ({
 
 const mapStateToProps = (state) => ({
   fileSystem: state.fileSystemReducers,
-  activityList: state.activityReducers,
+  activityList: state.activityReducers.activity,
 });
 export default connect(mapStateToProps, {
   removeActivity,

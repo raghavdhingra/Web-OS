@@ -2,12 +2,19 @@ import * as actions from "./types";
 
 export const removeActivity = (payload) => async (dispatch) => {
   try {
-    dispatch({
-      type: actions.REMOVE_ACTIVITY,
-      payload: {
-        activityIndex: payload,
-      },
+    await dispatch({
+      type: actions.UPDATE_ACTIVITY_TRIGGER,
+      payload: { activityIndex: payload, isTriggered: true },
     });
+    setTimeout(async () => {
+      await dispatch({
+        type: actions.REMOVE_ACTIVITY,
+        payload: {
+          activityIndex: payload,
+        },
+      });
+      await dispatch({ type: actions.REMOVE_ACTIVITY_TRIGGER });
+    }, 50);
   } catch (err) {
     console.log(err);
   }

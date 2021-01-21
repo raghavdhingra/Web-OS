@@ -1,0 +1,44 @@
+.camera-container {
+  height: 100%;
+  width: 100%;
+}
+.camera-video-container {
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+}
+.camera-container-overlay {
+  height: calc(100% - 31px);
+  width: 100%;
+  position: absolute;
+  top: 31px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+}
+.camera-button-container {
+  display: grid;
+  height: 100%;
+  grid-template-rows: 1fr auto 1fr;
+  padding: 0 0.5rem;
+}
+.camera-capture-button-svg {
+  cursor: pointer;
+  height: 4rem;
+  width: 4rem;
+  transition: 0.2s ease;
+}
+.camera-capture-button {
+  stroke: white;
+  stroke-width: 0.3rem;
+  transition: 0.2s ease-in-out;
+  fill: #0000;
+  cx: 2rem;
+  cy: 2rem;
+  r: 1.5rem;
+}
+.camera-capture-button:hover {
+  stroke-width: 0.5rem;
+}
+.camera-capture-button-svg:active {
+  transform: scale(0.8);
+}

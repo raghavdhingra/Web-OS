@@ -5,12 +5,7 @@ import Explorer from "../explorer/explorer";
 import SETTINGS from "../../../assets/icons/setting.svg";
 import "../../../assets/desktop/desktopWorkingArea.css";
 
-const DesktopWorkingArea = ({ activityList }) => {
-  const desktopIcons = [
-    { icon: SETTINGS, name: "Settings", width: "60px", click: null },
-    { icon: SETTINGS, name: "Settings", width: "60px", click: null },
-    { icon: SETTINGS, name: "Settings", width: "60px", click: null },
-  ];
+const DesktopWorkingArea = ({ activityList, fileSystem }) => {
   return (
     // No Parent component Other than the main div
     <div className="desktop-area-container">
@@ -24,21 +19,25 @@ const DesktopWorkingArea = ({ activityList }) => {
             />
           )
       )}
-      {desktopIcons.map((icon, index) => (
-        <DesktopIcon
-          key={`desktop-icon-${index}`}
-          icon={icon.icon}
-          name={icon.name}
-          width={icon.width}
-          clickTask={icon.click}
-        />
-      ))}
+      {fileSystem[0].child.map(
+        (system, index) =>
+          system && (
+            <DesktopIcon
+              key={`desktop-icon-${index}`}
+              icon={SETTINGS}
+              name={system.name}
+              width={"60px"}
+              // clickTask={system.click}
+            />
+          )
+      )}
     </div>
   );
 };
 
 const mapStateToProps = (state) => ({
-  activityList: state.activityReducers,
+  activityList: state.activityReducers.activity,
+  fileSystem: state.fileSystemReducers,
 });
 
 export default connect(mapStateToProps)(DesktopWorkingArea);

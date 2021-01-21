@@ -75,7 +75,6 @@ const Explorer = ({
 
       if (leftVal + elementWidth > windowWidth)
         leftVal = windowWidth - elementWidth;
-
       updatePositionActivity({
         top: topVal,
         left: leftVal,
@@ -153,7 +152,9 @@ const Explorer = ({
           </div>
         </div>
       </div>
-      <div className="explorer-body">{activity && activity.child}</div>
+      <div className="explorer-body">
+        {activity && activity.child({ activity })}
+      </div>
       {activity && activity.footer ? (
         <div className="explorer-footer">{activity.footer}</div>
       ) : null}
@@ -162,7 +163,7 @@ const Explorer = ({
 };
 
 const mapStateToProps = (state) => ({
-  activityList: state.activityReducers,
+  activityList: state.activityReducers.activity,
 });
 
 export default connect(mapStateToProps, {

@@ -128,7 +128,7 @@ const TaskList = ({
 };
 
 const mapStateToProps = (state) => ({
-  activityList: state.activityReducers,
+  activityList: state.activityReducers.activity,
   activityDropDown: state.desktopReducers.activityDropDown,
 });
 

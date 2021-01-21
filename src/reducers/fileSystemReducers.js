@@ -33,9 +33,9 @@ const fileSystemReducers = (state = initialState, action) => {
     }
     case actions.REMOVE_DIRECTORY_IN_SYSTEM: {
       const { pathArray, folderName } = payload;
-      let curDir = state;
+      let curDir = { child: [...state] };
       pathArray.forEach(
-        (path) => (curDir = curDir.find((system) => system.name === path).child)
+        (path) => (curDir = curDir.child.find((system) => system.name === path))
       );
       let index = curDir.indexOf(
         (dir) => dir.name === folderName && dir.type === "folder"

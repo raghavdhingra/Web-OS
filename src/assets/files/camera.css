@@ -26,6 +26,7 @@
   height: 4rem;
   width: 4rem;
   transition: 0.2s ease;
+  filter: drop-shadow(0 0 3px #0003);
 }
 .camera-capture-button {
   stroke: white;
@@ -40,5 +41,111 @@
   stroke-width: 0.5rem;
 }
 .camera-capture-button-svg:active {
-  transform: scale(0.8);
+  transform: scale(0.9);
+}
+.captured-image {
+  position: absolute;
+  top: 40px;
+  left: 10px;
+  height: 200px;
+  width: 350px;
+  animation: move-amin 5s ease forwards;
+  filter: drop-shadow(0 0 5px #0009);
+  border: 0.2rem solid #fff;
+  border-radius: 3px;
+}
+.captured-image-canvas {
+  height: 100%;
+  width: 100%;
+}
+.captured-image:hover .captured-image::after {
+  position: absolute;
+  content: "";
+  background-color: #0005;
+  top: 0;
+  height: 100%;
+  width: 100%;
+}
+@keyframes move-amin {
+  0% {
+    transform: translateY(20px);
+  }
+  20% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(20px);
+  }
+  60% {
+    transform: translateY(0);
+  }
+  80% {
+    transform: translateY(10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+.image-download-button-canvas {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  height: 30px;
+  width: 30px;
+  background-color: #ddd;
+  box-shadow: 0 0 3px 0 #0005;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 50%;
+}
+.image-close-button-canvas {
+  position: absolute;
+  top: 0;
+  right: 10px;
+  cursor: pointer;
+  color: #fff;
+  font-size: 1.5rem;
+  filter: drop-shadow(0 0 2px #0005);
+}
+.image-download-button-canvas > img {
+  height: auto;
+  width: 22px;
+  margin: 0 auto;
+}
+.camera-timer-container {
+  text-align: center;
+  color: #fff;
+  cursor: pointer;
+}
+.camera-timer-container > img {
+  filter: drop-shadow(0 0 2px #0005);
+  width: 30px;
+  margin-top: 1rem;
+}
+.timer-container {
+  position: absolute;
+  height: calc(100% - 31px);
+  width: 100%;
+  top: 31px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+  font-size: 4rem;
+}
+.fade-out-anim {
+  animation: fadeOut 1s ease forwards;
+}
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(3);
+  }
 }

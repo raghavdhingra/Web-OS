@@ -1,4 +1,4 @@
-// import * as actions from "../actions/types";
+import * as actions from "../actions/types";
 
 const initialState = [
   {
@@ -19,15 +19,33 @@ const initialState = [
 ];
 
 const fileSystemReducers = (state = initialState, action) => {
-  // const { type } = actions;
-  // switch (type) {
-  //   case actions: {
-  //     return state;
-  //   }
-  //   default:
-  //     return state;
-  // }
-  return state;
+  const { type, payload } = action;
+  switch (type) {
+    case actions.MAKE_DIRECTORY_IN_SYSTEM: {
+      const { pathArray, folderName } = payload;
+      let curDir = state;
+      pathArray.forEach(
+        (path) => (curDir = curDir.find((system) => system.name === path).child)
+      );
+      let newFolder = { name: folderName, type: "folder", child: [] };
+      curDir.push(newFolder);
+      return [...state];
+    }
+    case actions.REMOVE_DIRECTORY_IN_SYSTEM: {
+      const { pathArray, folderName } = payload;
+      let curDir = { child: [...state] };
+      pathArray.forEach(
+        (path) => (curDir = curDir.child.find((system) => system.name === path))
+      );
+      let index = curDir.indexOf(
+        (dir) => dir.name === folderName && dir.type === "folder"
+      );
+      curDir.splice(index, 1);
+      return [...state];
+    }
+    default:
+      return state;
+  }
 };
 
 export default fileSystemReducers;

@@ -14,6 +14,9 @@
   cursor: default;
   transition: 0.2s;
   border-radius: 2px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.3rem;
 }
 .task-listing-activity:hover {
   background-color: #fff3;
@@ -31,6 +34,15 @@
   cy: 10px;
   cx: 10px;
   stroke: #000;
+  stroke-width: 2px;
+  stroke-dasharray: 20 8;
+  fill: #0000;
+}
+.loader-sm-2 {
+  r: 5px;
+  cy: 8px;
+  cx: 8px;
+  stroke: #fff;
   stroke-width: 2px;
   stroke-dasharray: 20 8;
   fill: #0000;

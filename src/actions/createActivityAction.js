@@ -22,6 +22,7 @@ export const createActivity = (payload) => async (dispatch) => {
           left: "60px",
           height: "500px",
           width: "750px",
+          triggeredFunction: false,
         },
       },
     });

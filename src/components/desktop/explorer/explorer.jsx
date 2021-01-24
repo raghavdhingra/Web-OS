@@ -29,63 +29,76 @@ const Explorer = ({
   //   updateDimensionActivity({ height, width, activityIndex: explorerIndex });
 
   const dragElement = useCallback(() => {
-    let pos1 = 0,
-      pos2 = 0,
-      pos3 = 0,
-      pos4 = 0;
-    if (explorerRef.current)
-      explorerRef.current.addEventListener("mousedown", () => dragMouseDown());
-    else
-      elementToDrag.current.addEventListener("mousedown", () =>
-        dragMouseDown()
-      );
-    function dragMouseDown(e) {
-      e = e || window.event;
-      e.preventDefault();
-      pos3 = e.clientX;
-      pos4 = e.clientY;
-      document.onmouseup = closeDragElement;
-      document.onmousemove = elementDrag;
-    }
-    function elementDrag(e) {
-      e = e || window.event;
-      e.preventDefault();
-      // calculate the new cursor position:
-      pos1 = pos3 - e.clientX;
-      pos2 = pos4 - e.clientY;
-      pos3 = e.clientX;
-      pos4 = e.clientY;
-      // set the element's new position:
-      let elementHeight = elementToDrag.current.offsetHeight;
-      let elementWidth = elementToDrag.current.offsetWidth;
-      let elementTopOffset = elementToDrag.current.offsetTop;
-      let elementLeftOffset = elementToDrag.current.offsetLeft;
-      let topVal = elementTopOffset - pos2;
-      let leftVal = elementLeftOffset - pos1;
+    try {
+      let pos1 = 0,
+        pos2 = 0,
+        pos3 = 0,
+        pos4 = 0;
+      if (explorerRef.current)
+        explorerRef.current.addEventListener("mousedown", () =>
+          dragMouseDown()
+        );
+      else
+        elementToDrag.current.addEventListener("mousedown", () =>
+          dragMouseDown()
+        );
+      function dragMouseDown(e) {
+        try {
+          e = e || window.event;
+          e.preventDefault();
+          pos3 = e.clientX;
+          pos4 = e.clientY;
+          document.onmouseup = closeDragElement;
+          document.onmousemove = elementDrag;
+        } catch (err) {
+          return null;
+        }
+      }
+      function elementDrag(e) {
+        try {
+          e = e || window.event;
+          e.preventDefault();
+          // calculate the new cursor position:
+          pos1 = pos3 - e.clientX;
+          pos2 = pos4 - e.clientY;
+          pos3 = e.clientX;
+          pos4 = e.clientY;
+          // set the element's new position:
+          let elementHeight = elementToDrag.current.offsetHeight;
+          let elementWidth = elementToDrag.current.offsetWidth;
+          let elementTopOffset = elementToDrag.current.offsetTop;
+          let elementLeftOffset = elementToDrag.current.offsetLeft;
+          let topVal = elementTopOffset - pos2;
+          let leftVal = elementLeftOffset - pos1;
 
-      // Condition For Keeping Explorer in Window
-      if (topVal < 34) topVal = 34;
-      if (leftVal < 60) leftVal = 60;
+          // Condition For Keeping Explorer in Window
+          if (topVal < 34) topVal = 34;
+          if (leftVal < 60) leftVal = 60;
 
-      let windowHeight = window.innerHeight;
-      let windowWidth = window.innerWidth;
+          let windowHeight = window.innerHeight;
+          let windowWidth = window.innerWidth;
 
-      if (topVal + elementHeight > windowHeight)
-        topVal = windowHeight - elementHeight;
+          if (topVal + elementHeight > windowHeight)
+            topVal = windowHeight - elementHeight;
 
-      if (leftVal + elementWidth > windowWidth)
-        leftVal = windowWidth - elementWidth;
-
-      updatePositionActivity({
-        top: topVal,
-        left: leftVal,
-        activityIndex: explorerIndex,
-      });
-    }
-    function closeDragElement() {
-      // stop moving when mouse button is released:
-      document.onmouseup = null;
-      document.onmousemove = null;
+          if (leftVal + elementWidth > windowWidth)
+            leftVal = windowWidth - elementWidth;
+          updatePositionActivity({
+            top: topVal,
+            left: leftVal,
+            activityIndex: explorerIndex,
+          });
+        } catch (err) {
+          return null;
+        }
+      }
+      function closeDragElement() {
+        // stop moving when mouse button is released:
+        document.onmouseup = null;
+        document.onmousemove = null;
+      }
+    } catch (err) {
+      return null;
     }
   }, [updatePositionActivity, explorerIndex]);
   const toggleMaximise = () =>
@@ -153,7 +166,9 @@ const Explorer = ({
           </div>
         </div>
       </div>
-      <div className="explorer-body">{activity && activity.child}</div>
+      <div className="explorer-body">
+        {activity && activity.child({ activity })}
+      </div>
       {activity && activity.footer ? (
         <div className="explorer-footer">{activity.footer}</div>
       ) : null}
@@ -162,7 +177,7 @@ const Explorer = ({
 };
 
 const mapStateToProps = (state) => ({
-  activityList: state.activityReducers,
+  activityList: state.activityReducers.activity,
 });
 
 export default connect(mapStateToProps, {

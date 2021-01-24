@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import DropDownCaret from "../../../assets/icons/dropdown.svg";
 import { removeActivity } from "../../../actions/activityActions";
@@ -18,7 +18,12 @@ const TaskList = ({
     setActivityName(name);
     setDialogOpen(isOpen);
   };
-
+  const [isLoading, setIsLoading] = useState(false);
+  useEffect(() => {
+    let indexTrue = activityList.findIndex((e) => e.isLoading === true);
+    if (indexTrue !== -1) setIsLoading(true);
+    else setIsLoading(false);
+  }, [activityList]);
   const toggleActivity = () => {
     let activityIndex = activityList.findIndex(
       (activity) => activity && activity.name === activityName
@@ -40,12 +45,19 @@ const TaskList = ({
       <div className="task-list-container">
         <div className="heading centralise">Tasks</div>
         <div
-          className={`task-listing-activity centralise cursor-pointer ${
+          className={`task-listing-activity cursor-pointer ${
             activityDropDown ? "task-listing-activity-active" : ""
           }`}
           onClick={() => activityDropDownToggle(!activityDropDown)}
         >
-          Activity List ▾
+          {isLoading && (
+            <div className="centralise">
+              <svg height="16px" width="16px" className="loader-rotate">
+                <circle className="loader-sm-2" />
+              </svg>
+            </div>
+          )}
+          <div className="centralise">Activity List ▾</div>
         </div>
         {activityDropDown && (
           <>
@@ -128,7 +140,7 @@ const TaskList = ({
 };
 
 const mapStateToProps = (state) => ({
-  activityList: state.activityReducers,
+  activityList: state.activityReducers.activity,
   activityDropDown: state.desktopReducers.activityDropDown,
 });
 

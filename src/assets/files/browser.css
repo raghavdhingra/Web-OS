@@ -1,0 +1,49 @@
+.browser-container {
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+.browser-task-container {
+  /* background-color: aqua; */
+  border-bottom: 0.05rem solid #00000015;
+  padding: 0.3rem 0.5rem;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+}
+.browser-task-image-container > img {
+  width: 15px;
+  cursor: pointer;
+}
+.browser-container > iframe {
+  height: 100%;
+  width: 100%;
+  border: none;
+}
+.browser-loader {
+  height: calc(100% - 66px);
+  width: 100%;
+  position: absolute;
+  top: 66px;
+  text-align: center;
+  z-index: 100000;
+  background-color: #eee;
+}
+.loader-lg-browser {
+  r: 20px;
+  cy: 40px;
+  cx: 40px;
+  stroke: #0005;
+  stroke-width: 5px;
+  fill: #0000;
+  stroke-dasharray: 60 40;
+}
+input.browser-search-input {
+  border: 1px solid #0002;
+  padding: 0.2rem 0.4rem;
+  margin: 0 1rem;
+  border-radius: 30px !important;
+}
+.browser-search-input:focus {
+  outline: none;
+}

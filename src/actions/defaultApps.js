@@ -1,6 +1,6 @@
 import React from "react";
 import TerminalImage from "../assets/icons/terminal.png";
-import CameraImage from "../assets/icons/camera.png";
+import CameraImage from "../assets/icons/camera.svg";
 import BrowserImage from "../assets/icons/browser.svg";
 import SettingsImage from "../assets/icons/setting.svg";
 import TerminalWindow from "../components/files/Terminal/terminal";

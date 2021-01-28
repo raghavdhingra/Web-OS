@@ -1,14 +1,34 @@
 import * as actions from "../actions/types";
 import PROFILE_IMAGE from "../assets/icons/profile.svg";
 import PROJECT_IMAGE from "../assets/icons/project.svg";
+import ARCHIVE_IMAGE from "../assets/icons/archive.svg";
 
 const initialState = [
   {
     name: "desktop",
     type: "folder",
     child: [
-      { name: "Portfolio", type: "file", icon: PROFILE_IMAGE },
-      { name: "Projects", type: "file", icon: PROJECT_IMAGE },
+      {
+        name: "Portfolio",
+        type: "file",
+        icon: PROFILE_IMAGE,
+        link: "https://portfolio.raghavdhingra.com",
+        inPage: true,
+      },
+      {
+        name: "Projects",
+        type: "file",
+        icon: PROJECT_IMAGE,
+        link: "https://portfolio.raghavdhingra.com/projects",
+        inPage: true,
+      },
+      {
+        name: "Archive",
+        type: "file",
+        icon: ARCHIVE_IMAGE,
+        link: "https://archive.raghavdhingra.com",
+        inPage: false,
+      },
       { name: "Extra", type: "folder", child: [] },
     ],
   },

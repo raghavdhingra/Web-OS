@@ -3,9 +3,22 @@ import * as actions from "./types";
 
 export const createActivity = (payload) => async (dispatch) => {
   try {
-    let { name } = payload;
-    let app = defaultApps.find((app) => app.key === name);
-    dispatch({
+    let { name, newApp } = payload;
+    let app;
+    if (newApp) {
+      let { image, footer, child } = payload;
+      app = {
+        name,
+        image,
+        width: "40px",
+        key: name,
+        child,
+        footer,
+      };
+    } else {
+      app = defaultApps.find((app) => app.key === name);
+    }
+    await dispatch({
       type: actions.CREATE_ACTIVITY,
       payload: {
         activity: {

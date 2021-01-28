@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { connect } from "react-redux";
 import "../../../assets/files/camera.css";
-import DOWNLOAD_ICON from "../../../assets/icons/download.png";
+import DOWNLOAD_ICON from "../../../assets/icons/download.svg";
 import STOP_WATCH from "../../../assets/icons/stopwatch.svg";
 
 const Camera = ({ supplement, triggerIndex, isTriggered, activityList }) => {

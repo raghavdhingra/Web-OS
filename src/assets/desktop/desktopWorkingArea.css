@@ -15,3 +15,38 @@
   width: 100%;
   border: none;
 }
+
+/* Context Menu */
+.context-menu-container {
+  position: absolute;
+  height: 300px;
+  width: 230px;
+  color: #666;
+  background-color: #fff;
+  border-radius: 3px;
+  box-shadow: 0 0 5px 0 #0006;
+  animation: opacAnim 0.2s ease;
+}
+@keyframes opacAnim {
+  from {
+    transform: scaleY(0.5);
+    opacity: 0;
+  }
+  to {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+.context-menu-content {
+  padding: 0.4rem 0.6rem;
+  margin: 0.1rem 0;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+.context-menu-content:hover {
+  background-color: rgb(234, 84, 33, 0.95);
+  color: #fff;
+}
+.context-menu-content:active {
+  filter: brightness(0.8);
+}

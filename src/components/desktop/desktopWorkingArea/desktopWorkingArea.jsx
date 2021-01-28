@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import DesktopIcon from "./desktopIcon";
+import ContextMenu from "./ContextMenu";
 import { connect } from "react-redux";
 import Explorer from "../explorer/explorer";
 import FOLDER_IMAGE from "../../../assets/icons/folder.svg";
@@ -9,29 +10,30 @@ import "../../../assets/desktop/desktopWorkingArea.css";
 
 const LinkFooter = ({ system }) => {
   return (
-    <>
-      <div className="link-footer">
-        Open in new Tab:{" "}
-        <a href={system.link} target="_blank" rel="noreferrer">
-          {system.link}
-        </a>
-      </div>
-    </>
+    <div className="link-footer">
+      Open in new Tab:{" "}
+      <a href={system.link} target="_blank" rel="noreferrer">
+        {system.link}
+      </a>
+    </div>
   );
 };
 const IframeContainer = ({ system }) => {
   return (
-    <>
-      <iframe
-        src={system.link}
-        title={system.name}
-        className="portfolio-container-iframe"
-      ></iframe>
-    </>
+    <iframe
+      src={system.link}
+      title={system.name}
+      className="portfolio-container-iframe"
+    />
   );
 };
 
 const DesktopWorkingArea = ({ activityList, fileSystem, createActivity }) => {
+  const desktopWorkingRef = useRef(null);
+  const [contextShown, setContextShown] = useState(false);
+  const [contextPosition, setContextPosition] = useState({ top: 0, left: 0 });
+  const contextMenuHeight = 300;
+
   const iconChanger = (system) => {
     return system.icon
       ? system.icon
@@ -56,9 +58,38 @@ const DesktopWorkingArea = ({ activityList, fileSystem, createActivity }) => {
       }
     }
   };
+  useEffect(() => {
+    desktopWorkingRef.current.addEventListener("contextmenu", (e) => {
+      try {
+        e.preventDefault();
+        setContextShown(false);
+        setTimeout(() => {
+          setContextShown(true);
+          let posX = e.clientX;
+          let posY = e.clientY;
+          let winWidth = window.innerWidth;
+          let winHeight = window.innerHeight;
+          if (winWidth - 235 < posX) posX = winWidth - 235;
+          if (winHeight - (contextMenuHeight + 5) < posY)
+            posY = winHeight - (contextMenuHeight + 5);
+          setContextPosition({ top: posY, left: posX });
+        }, 50);
+      } catch (err) {
+        return null;
+      }
+    });
+  }, []);
   return (
     // No Parent component Other than the main div
-    <div className="desktop-area-container">
+    <div className="desktop-area-container" ref={desktopWorkingRef}>
+      <ContextMenu
+        isOpen={contextShown}
+        close={() => setContextShown(false)}
+        top={contextPosition.top}
+        left={contextPosition.left}
+        contextArray={[]}
+        height={contextMenuHeight}
+      />
       {activityList.map(
         (activity, index) =>
           activity && (

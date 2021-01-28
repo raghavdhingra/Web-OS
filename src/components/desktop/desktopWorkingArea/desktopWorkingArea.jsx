@@ -40,7 +40,7 @@ const DesktopWorkingArea = ({ activityList, fileSystem, createActivity }) => {
       : FILE_IMAGE;
   };
   const startTask = (system) => {
-    if (system.type === "file") {
+    if (system.type === "folder") {
       if (system.link) {
         if (system.inPage) {
           createActivity({

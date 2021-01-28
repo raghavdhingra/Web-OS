@@ -35,12 +35,12 @@ const DesktopWorkingArea = ({ activityList, fileSystem, createActivity }) => {
   const iconChanger = (system) => {
     return system.icon
       ? system.icon
-      : system.type === "file"
+      : system.type === "folder"
       ? FOLDER_IMAGE
       : FILE_IMAGE;
   };
   const startTask = (system) => {
-    if (system.type === "folder") {
+    if (system.type === "file") {
       if (system.link) {
         if (system.inPage) {
           createActivity({

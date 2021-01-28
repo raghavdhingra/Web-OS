@@ -28,6 +28,7 @@ export const changeFontStyle = (payload) => async (dispatch) => {
 };
 export const resetToDefault = () => async (dispatch) => {
   try {
+    localStorage.clear();
     await dispatch({ type: actions.RESET_TO_DEFAULT });
   } catch (err) {
     console.log(err);

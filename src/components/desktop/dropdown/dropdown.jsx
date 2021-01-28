@@ -59,7 +59,9 @@ const DropDown = ({
           <div className="drop-down-items">
             <div
               className="network-dot"
-              style={{ backgroundColor: `${isOnline ? "green" : "red"}` }}
+              style={{
+                backgroundColor: `${isOnline ? "rgba(0,255,0,0.5)" : "red"}`,
+              }}
             ></div>
             {isOnline ? `Connected (${networkType})` : "Not Connected"}
           </div>
@@ -67,7 +69,9 @@ const DropDown = ({
             <div
               className="network-dot"
               style={{
-                backgroundColor: `${battery.charging ? "green" : "red"}`,
+                backgroundColor: `${
+                  battery.charging ? "rgba(0,255,0,0.5)" : "rgba(255,0,0,0.8)"
+                }`,
               }}
             ></div>
             Battery: {parseInt(battery.level * 100)}% (

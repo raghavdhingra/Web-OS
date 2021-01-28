@@ -7,6 +7,8 @@ export const BATTERY_STATUS = "BATTERY_STATUS";
 export const ONLINE_STATUS = "ONLINE_STATUS";
 export const NETWORK_TYPE = "NETWORK_TYPE";
 export const POWER_OFF_STATUS = "POWER_OFF_STATUS";
+export const RESET_TO_DEFAULT = "RESET_TO_DEFAULT";
+export const FONT_STYLE_CHANGE = "FONT_STYLE_CHANGE";
 
 // Activities Types
 export const CREATE_ACTIVITY = "CREATE_ACTIVITY";

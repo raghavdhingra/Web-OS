@@ -2,6 +2,7 @@ import * as actions from "../actions/types";
 
 const initialState = {
   background: 3,
+  fontStyle: 1,
   brightness: 1,
   dropDownOpen: false,
   battery: {
@@ -25,9 +26,23 @@ const desktopReducers = (state = initialState, action) => {
       let { dropDownOpen } = payload;
       return { ...state, dropDownOpen };
     }
+    case actions.RESET_TO_DEFAULT: {
+      return {
+        ...state,
+        background: 3,
+        brightness: 1,
+        fontStyle: 1,
+        dropDownOpen: false,
+        activityDropDown: false,
+      };
+    }
     case actions.BACK_IMAGE_CHANGE: {
       let { background } = payload;
       return { ...state, background };
+    }
+    case actions.FONT_STYLE_CHANGE: {
+      let { fontStyle } = payload;
+      return { ...state, fontStyle };
     }
     case actions.BRIGHTNESS_CHANGE: {
       let { brightness } = payload;

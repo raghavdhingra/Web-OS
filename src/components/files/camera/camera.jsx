@@ -37,18 +37,30 @@ const Camera = ({ supplement, triggerIndex, isTriggered, activityList }) => {
     if (!isCaptured) {
       setTimeout(() => {
         setIsCaptured(true);
-        let canvasContext = canvasRef.current.getContext("2d");
-        canvasContext.drawImage(videoRef.current, 0, 0, 300, 150);
-        setIsCapturing(false);
+        try {
+          let canvasContext = canvasRef.current.getContext("2d");
+          let height = videoRef.current.offsetHeight;
+          let width = videoRef.current.offsetWidth;
+          let WHRatio = width / height;
+          // console.log(height, width);
+          canvasContext.drawImage(videoRef.current, 0, 0, 300, 300 / WHRatio);
+          setIsCapturing(false);
+        } catch (err) {
+          return null;
+        }
       }, timer * 1000);
     } else {
       setIsCaptured(false);
       setTimeout(() => {
         setTimeout(() => {
-          let canvasContext = canvasRef.current.getContext("2d");
-          canvasContext.drawImage(videoRef.current, 0, 0, 300, 150);
-          setIsCaptured(true);
-          setIsCapturing(false);
+          try {
+            let canvasContext = canvasRef.current.getContext("2d");
+            canvasContext.drawImage(videoRef.current, 0, 0, 300, 150);
+            setIsCaptured(true);
+            setIsCapturing(false);
+          } catch (err) {
+            return null;
+          }
         }, 100);
       }, timer * 1000);
     }

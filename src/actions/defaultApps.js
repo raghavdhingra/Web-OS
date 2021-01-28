@@ -6,8 +6,9 @@ import SettingsImage from "../assets/icons/setting.svg";
 import TerminalWindow from "../components/files/Terminal/terminal";
 import Camera from "../components/files/camera/camera";
 import Browser from "../components/files/Browser/browser";
+import Settings from "../components/files/Settings/settings";
 
-const nullFunction = (supplement) => null;
+// const nullFunction = (supplement) => null;
 export const defaultApps = [
   {
     name: "Terminal",
@@ -15,7 +16,7 @@ export const defaultApps = [
     width: "40px",
     key: "terminal",
     child: (supplement) => <TerminalWindow supplement={supplement} />,
-    footer: nullFunction,
+    // footer: nullFunction,
   },
   {
     name: "Browser",
@@ -36,6 +37,6 @@ export const defaultApps = [
     image: SettingsImage,
     width: "50px",
     key: "settings",
-    child: nullFunction,
+    child: (supplement) => <Settings supplement={supplement} />,
   },
 ];

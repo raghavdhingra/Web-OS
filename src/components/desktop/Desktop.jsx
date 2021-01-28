@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo } from "react";
 import { connect } from "react-redux";
-import { changeBackImage } from "../../actions/desktopActions";
+import { changeBackImage, changeFontStyle } from "../../actions/desktopActions";
 import Taskbar from "./taskbar/taskbar";
 import PowerOff from "./powerOff/powerOff";
 import LowerDesktop from "./lowerDesktop/lowerDesktop.jsx";
@@ -12,7 +12,13 @@ import Back5 from "../../assets/background/wall-5.svg";
 import Back6 from "../../assets/background/wall-6.svg";
 import "../../assets/desktop/desktop.css";
 
-const Desktop = ({ brightness, background, changeBackImage }) => {
+const Desktop = ({
+  brightness,
+  background,
+  changeBackImage,
+  changeFontStyle,
+  fontStyle,
+}) => {
   const backgroundArray = useMemo(
     () => [
       { img: Back1, cover: true },
@@ -24,20 +30,34 @@ const Desktop = ({ brightness, background, changeBackImage }) => {
     ],
     []
   );
+  const fontStyleArray = useMemo(
+    () => [
+      { name: "Roboto", className: "font-roboto" },
+      { name: "Potta One", className: "font-potta" },
+      { name: "Raleway", className: "font-raleway" },
+      { name: "Lobster", className: "font-lobster" },
+    ],
+    []
+  );
   useEffect(() => {
     const imgNum = parseInt(localStorage.getItem("backImage"));
-    if (imgNum)
-      if (imgNum < backgroundArray.length) changeBackImage(imgNum);
+    const fontStyleNum = parseInt(localStorage.getItem("fontStyle"));
+    if (imgNum) {
+      if (imgNum <= backgroundArray.length) changeBackImage(imgNum);
       else changeBackImage(3);
-    else changeBackImage(3);
-  }, [backgroundArray, changeBackImage]);
+    } else changeBackImage(3);
+    if (fontStyleNum) {
+      if (fontStyleNum <= fontStyleArray.length) changeFontStyle(fontStyleNum);
+      else changeFontStyle(1);
+    } else changeFontStyle(1);
+  }, [backgroundArray, changeBackImage, fontStyleArray, changeFontStyle]);
   return (
     <>
       <PowerOff backImage={backgroundArray[background - 1]} />
       <div
         className={`desktop-container ${
           backgroundArray[background - 1].cover ? "image-cover" : ""
-        }`}
+        } ${fontStyleArray[fontStyle - 1].className}`}
         style={{
           backgroundImage: `url(${backgroundArray[background - 1].img})`,
           filter: `brightness(${brightness})`,
@@ -56,6 +76,9 @@ const mapStateToProps = (state) => ({
   dropDownOpen: state.desktopReducers.dropDownOpen,
   background: state.desktopReducers.background,
   brightness: state.desktopReducers.brightness,
+  fontStyle: state.desktopReducers.fontStyle,
 });
 
-export default connect(mapStateToProps, { changeBackImage })(Desktop);
+export default connect(mapStateToProps, { changeBackImage, changeFontStyle })(
+  Desktop
+);

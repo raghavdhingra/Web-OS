@@ -1,0 +1,102 @@
+.settings-container {
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 200px 1fr;
+}
+.settings-left-container {
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0.5rem 0;
+  border-right: 1px solid rgb(207, 207, 207);
+}
+.settings-left-button {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+.settings-left-button-active {
+  background-color: rgb(234, 84, 33, 0.2);
+}
+.settings-left-button:hover {
+  background-color: rgb(234, 84, 33);
+  color: #fff;
+}
+.settings-left-button:active {
+  filter: brightness(0.9);
+}
+.settings-right-container {
+  background-color: rgb(247, 247, 247);
+}
+.settings-right-inner-container {
+  width: 90% !important;
+  margin: 0 auto;
+}
+.settings-right-inner-container-header {
+  font-size: 1rem;
+  font-weight: bold;
+  margin: 1rem 0 0.5rem 0;
+}
+.settings-right-inner-container-bottom {
+  width: 100%;
+  background-color: #fff;
+  padding: 0.5rem 1rem;
+  box-sizing: border-box;
+  border: 1px solid rgb(207, 207, 207);
+  border-radius: 3px;
+}
+
+/* Theme */
+.theme-change-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  /* display: flex;
+  width: 100%;
+  flex-shrink: 0;
+  justify-content: space-between; */
+}
+.theme-change-division {
+  padding: 0.5rem;
+  cursor: pointer;
+  border-radius: 5px;
+  box-sizing: border-box;
+  margin: 0 auto;
+  width: 130px;
+}
+.theme-change-division:hover {
+  background-color: rgb(26, 115, 232, 0.8);
+  color: #fff;
+}
+.theme-change-background {
+  border-radius: 5px;
+  height: 90px;
+  width: 100%;
+  text-align: center;
+  font-size: 2rem;
+  background-color: aliceblue;
+  color: #666;
+  transition: 0.2s ease;
+}
+.theme-change-division-active {
+  background-color: rgb(26, 115, 232, 0.3);
+}
+.theme-change-name {
+  margin: 0.2rem 0;
+  text-align: center;
+}
+
+/* Reset To Default */
+.reset-button {
+  width: max-content;
+  padding: 0.2rem 0.6rem;
+  margin: 0.5rem 0;
+  border-radius: 3px;
+  cursor: pointer;
+  border: 1px solid #0004;
+}
+.reset-button:hover {
+  background-color: #0001;
+}
+.reset-button:active {
+  background-color: #0002;
+}

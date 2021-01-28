@@ -2,7 +2,8 @@ import * as actions from "./types";
 
 export const changeBackImage = (payload) => async (dispatch) => {
   try {
-    dispatch({
+    localStorage.setItem("backImage", payload);
+    await dispatch({
       type: actions.BACK_IMAGE_CHANGE,
       payload: {
         background: payload,
@@ -12,9 +13,29 @@ export const changeBackImage = (payload) => async (dispatch) => {
     console.log(err);
   }
 };
+export const changeFontStyle = (payload) => async (dispatch) => {
+  try {
+    localStorage.setItem("fontStyle", payload);
+    await dispatch({
+      type: actions.FONT_STYLE_CHANGE,
+      payload: {
+        fontStyle: payload,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
+export const resetToDefault = () => async (dispatch) => {
+  try {
+    await dispatch({ type: actions.RESET_TO_DEFAULT });
+  } catch (err) {
+    console.log(err);
+  }
+};
 export const changeBrightness = (payload) => async (dispatch) => {
   try {
-    dispatch({
+    await dispatch({
       type: actions.BRIGHTNESS_CHANGE,
       payload: {
         brightness: payload,

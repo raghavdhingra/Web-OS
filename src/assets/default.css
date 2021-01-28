@@ -1,4 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Potta+One&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Raleway&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
 
 * {
   margin: 0;
@@ -9,8 +12,17 @@
   -o-user-select: none;
   user-select: none;
 }
-body {
+.font-roboto {
   font-family: "Roboto", sans-serif;
+}
+.font-potta {
+  font-family: "Potta One", cursive;
+}
+.font-raleway {
+  font-family: "Raleway", sans-serif;
+}
+.font-lobster {
+  font-family: "Lobster", cursive;
 }
 .centralise {
   display: flex;

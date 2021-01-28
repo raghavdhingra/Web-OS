@@ -1,10 +1,16 @@
 import * as actions from "../actions/types";
+import PROFILE_IMAGE from "../assets/icons/profile.svg";
+import PROJECT_IMAGE from "../assets/icons/project.svg";
 
 const initialState = [
   {
     name: "desktop",
     type: "folder",
-    child: [{ name: "profile", type: "folder", child: [] }],
+    child: [
+      { name: "Portfolio", type: "file", icon: PROFILE_IMAGE },
+      { name: "Projects", type: "file", icon: PROJECT_IMAGE },
+      { name: "Extra", type: "folder", child: [] },
+    ],
   },
   {
     name: "raghavdhingra",

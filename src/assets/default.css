@@ -35,6 +35,25 @@
 .cursor-pointer {
   cursor: pointer;
 }
+.text-area-editor {
+  height: 100%;
+  width: 100%;
+  resize: none;
+  border: none;
+  box-sizing: border-box;
+  padding: 0.2rem 0.4rem;
+}
+.text-area-editor:focus {
+  outline: none;
+}
+.text-area-editor::-webkit-scrollbar {
+  width: 10px;
+}
+.text-area-editor::-webkit-scrollbar-thumb {
+  width: 10px;
+  background-color: rgba(234, 84, 33, 0.9);
+  border-radius: 10px;
+}
 .container {
   padding-right: 15px;
   padding-left: 15px;

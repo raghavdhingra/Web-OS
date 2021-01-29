@@ -30,7 +30,7 @@ export const createActivity = (payload) => async (dispatch) => {
           child: app.child,
           footer: app.footer,
           image: app.image,
-          zIndex: 2,
+          zIndex: 4,
           top: "34px",
           left: "60px",
           height: "500px",

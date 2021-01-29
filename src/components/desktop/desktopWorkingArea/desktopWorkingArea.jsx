@@ -102,8 +102,8 @@ const DesktopWorkingArea = ({
           name: system.name,
           newApp: true,
           image: iconChanger(system),
-          footer: null,
-          child: () => <TextEditor input={system.child} />,
+          footer: <>Auto Save</>,
+          child: () => <TextEditor system={system} />,
         });
       }
     }

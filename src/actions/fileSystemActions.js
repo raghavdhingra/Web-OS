@@ -31,3 +31,10 @@ export const removeDirectoryAction = (payload) => async (dispatch) => {
     console.log(err);
   }
 };
+export const changeTextInFile = (payload) => async (dispatch) => {
+  try {
+    dispatch({ type: actions.CHANGE_TEXT_IN_FILE, payload });
+  } catch (err) {
+    console.log(err);
+  }
+};

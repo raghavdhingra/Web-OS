@@ -52,7 +52,7 @@ const DesktopWorkingArea = ({
   const [contextShown, setContextShown] = useState(false);
   const [resetSettingsOpen, setResetSettingsOpen] = useState(false);
   const [contextPosition, setContextPosition] = useState({ top: 0, left: 0 });
-  const contextMenuHeight = 300;
+  const contextMenuHeight = 205;
 
   const contextArray = [
     { name: "Menu", onClick: () => {} },

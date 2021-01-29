@@ -15,14 +15,26 @@
   width: 100%;
   border: none;
 }
+.new-file-folder-input {
+  border: none;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid #0002;
+  border-radius: 3px;
+  box-sizing: border-box;
+  font-size: 1rem;
+  width: 100%;
+}
+.new-file-folder-input:focus {
+  outline: none;
+}
 
 /* Context Menu */
 .context-menu-container {
   position: absolute;
   height: 300px;
   width: 230px;
-  color: #666;
-  background-color: #fff;
+  color: #212121;
+  background-color: #fff8;
   border-radius: 3px;
   box-shadow: 0 0 5px 0 #0006;
   animation: opacAnim 0.2s ease;
@@ -38,7 +50,7 @@
   }
 }
 .context-menu-content {
-  padding: 0.4rem 0.6rem;
+  padding: 0.4rem 1rem;
   margin: 0.1rem 0;
   cursor: pointer;
   transition: 0.2s ease;

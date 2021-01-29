@@ -12,6 +12,7 @@ const ContextMenu = ({ isOpen, top, left, close, height, contextArray }) => {
     });
   }, [close]);
   const contextTaskPerform = (task) => {
+    task.onClick();
     close();
   };
   if (isOpen)
@@ -29,7 +30,7 @@ const ContextMenu = ({ isOpen, top, left, close, height, contextArray }) => {
                   key={`context-${index}`}
                   onClick={() => contextTaskPerform(context)}
                 >
-                  {context.className}
+                  {context.name}
                 </div>
               ))
             : null}

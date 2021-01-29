@@ -57,6 +57,16 @@ const fileSystemReducers = (state = initialState, action) => {
       curDir.push(newFolder);
       return [...state];
     }
+    case actions.MAKE_FILE_IN_SYSTEM: {
+      const { pathArray, fileName } = payload;
+      let curDir = state;
+      pathArray.forEach(
+        (path) => (curDir = curDir.find((system) => system.name === path).child)
+      );
+      let newFile = { name: fileName, type: "file" };
+      curDir.push(newFile);
+      return [...state];
+    }
     case actions.REMOVE_DIRECTORY_IN_SYSTEM: {
       const { pathArray, folderName } = payload;
       let curDir = { child: [...state] };

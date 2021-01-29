@@ -7,6 +7,12 @@ import FOLDER_IMAGE from "../../../assets/icons/folder.svg";
 import FILE_IMAGE from "../../../assets/icons/file.svg";
 import { createActivity } from "../../../actions/createActivityAction";
 import "../../../assets/desktop/desktopWorkingArea.css";
+import { resetToDefault } from "../../../actions/desktopActions";
+import DialogBox from "../../desktop/dialogBox/dialogBox";
+import {
+  makeDirectoryAction,
+  makeFileAction,
+} from "../../../actions/fileSystemActions";
 
 const LinkFooter = ({ system }) => {
   return (
@@ -28,12 +34,47 @@ const IframeContainer = ({ system }) => {
   );
 };
 
-const DesktopWorkingArea = ({ activityList, fileSystem, createActivity }) => {
+const DesktopWorkingArea = ({
+  activityList,
+  fileSystem,
+  createActivity,
+  resetToDefault,
+  makeFileAction,
+  makeDirectoryAction,
+}) => {
   const desktopWorkingRef = useRef(null);
+  const [newDir, setNewDir] = useState({
+    open: false,
+    isFolder: false,
+    name: "",
+  });
   const [contextShown, setContextShown] = useState(false);
+  const [resetSettingsOpen, setResetSettingsOpen] = useState(false);
   const [contextPosition, setContextPosition] = useState({ top: 0, left: 0 });
   const contextMenuHeight = 300;
 
+  const contextArray = [
+    { name: "Menu", onClick: () => {} },
+    { name: "Terminal", onClick: () => createActivity({ name: "terminal" }) },
+    {
+      name: "New File",
+      onClick: () => setNewDir({ open: true, isFolder: false, name: "" }),
+    },
+    {
+      name: "New Folder",
+      onClick: () => setNewDir({ open: true, isFolder: true, name: "" }),
+    },
+    {
+      name: "Customise Display",
+      onClick: () => createActivity({ name: "settings" }),
+    },
+    { name: "Reset Settings", onClick: () => setResetSettingsOpen(true) },
+  ];
+
+  const resetSuccess = () => {
+    setResetSettingsOpen(false);
+    resetToDefault();
+  };
   const iconChanger = (system) => {
     return system.icon
       ? system.icon
@@ -79,15 +120,53 @@ const DesktopWorkingArea = ({ activityList, fileSystem, createActivity }) => {
       }
     });
   }, []);
+  const makeNewDir = () => {
+    if (newDir.name) {
+      if (newDir.isFolder)
+        makeDirectoryAction({
+          pathArray: ["desktop"],
+          folderName: newDir.name,
+        });
+      else
+        makeFileAction({
+          pathArray: ["desktop"],
+          fileName: newDir.name,
+        });
+      setNewDir({ ...newDir, name: "", open: false, isFolder: false });
+    } else alert("Please Enter a name");
+  };
   return (
     // No Parent component Other than the main div
     <div className="desktop-area-container" ref={desktopWorkingRef}>
+      <DialogBox
+        onSuccess={resetSuccess}
+        onCancel={() => setResetSettingsOpen(false)}
+        isOpen={resetSettingsOpen}
+        successText={"Reset"}
+        heading={"Reset Settings"}
+        body={"Sure! You want to reset to your default settings?"}
+      />
+      <DialogBox
+        onSuccess={makeNewDir}
+        onCancel={() => setNewDir(false)}
+        isOpen={newDir.open}
+        successText={"Save"}
+        heading={`New ${newDir.isFolder ? "Folder" : "File"}`}
+        body={
+          <input
+            type="text"
+            className="new-file-folder-input"
+            placeholder={`${newDir.isFolder ? "Folder" : "File"} Name`}
+            onChange={(e) => setNewDir({ ...newDir, name: e.target.value })}
+          />
+        }
+      />
       <ContextMenu
         isOpen={contextShown}
         close={() => setContextShown(false)}
         top={contextPosition.top}
         left={contextPosition.left}
-        contextArray={[]}
+        contextArray={contextArray}
         height={contextMenuHeight}
       />
       {activityList.map(
@@ -121,4 +200,9 @@ const mapStateToProps = (state) => ({
   fileSystem: state.fileSystemReducers,
 });
 
-export default connect(mapStateToProps, { createActivity })(DesktopWorkingArea);
+export default connect(mapStateToProps, {
+  createActivity,
+  makeDirectoryAction,
+  resetToDefault,
+  makeFileAction,
+})(DesktopWorkingArea);

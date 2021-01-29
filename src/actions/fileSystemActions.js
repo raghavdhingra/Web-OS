@@ -38,3 +38,10 @@ export const changeTextInFile = (payload) => async (dispatch) => {
     console.log(err);
   }
 };
+export const previousStateSet = (payload) => async (dispatch) => {
+  try {
+    dispatch({ type: actions.PREVIOUS_STATE_SET, payload });
+  } catch (err) {
+    console.log(err);
+  }
+};

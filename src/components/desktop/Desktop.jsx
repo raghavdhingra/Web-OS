@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo } from "react";
 import { connect } from "react-redux";
 import { changeBackImage, changeFontStyle } from "../../actions/desktopActions";
+import { previousStateSet } from "../../actions/fileSystemActions";
 import Taskbar from "./taskbar/taskbar";
 import PowerOff from "./powerOff/powerOff";
 import LowerDesktop from "./lowerDesktop/lowerDesktop.jsx";
@@ -18,7 +19,9 @@ const Desktop = ({
   changeBackImage,
   changeFontStyle,
   fontStyle,
+  previousStateSet,
 }) => {
+  useEffect(() => previousStateSet(), [previousStateSet]);
   const backgroundArray = useMemo(
     () => [
       { img: Back1, cover: true },
@@ -79,6 +82,8 @@ const mapStateToProps = (state) => ({
   fontStyle: state.desktopReducers.fontStyle,
 });
 
-export default connect(mapStateToProps, { changeBackImage, changeFontStyle })(
-  Desktop
-);
+export default connect(mapStateToProps, {
+  changeBackImage,
+  changeFontStyle,
+  previousStateSet,
+})(Desktop);

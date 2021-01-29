@@ -48,6 +48,7 @@ const initialState = [
     location: [],
   },
 ];
+const localSave = (key, val) => localStorage.setItem(key, JSON.stringify(val));
 
 const fileSystemReducers = (state = initialState, action) => {
   const { type, payload } = action;
@@ -60,6 +61,7 @@ const fileSystemReducers = (state = initialState, action) => {
       );
       let changedFile = curDir.find((system) => system.name === name);
       changedFile.child = child;
+      localSave("fileSystem", [...state]);
       return [...state];
     }
     case actions.MAKE_DIRECTORY_IN_SYSTEM: {
@@ -75,6 +77,7 @@ const fileSystemReducers = (state = initialState, action) => {
         location: pathArray,
       };
       curDir.push(newFolder);
+      localSave("fileSystem", [...state]);
       return [...state];
     }
     case actions.MAKE_FILE_IN_SYSTEM: {
@@ -90,6 +93,7 @@ const fileSystemReducers = (state = initialState, action) => {
         child: "",
       };
       curDir.push(newFile);
+      localSave("fileSystem", [...state]);
       return [...state];
     }
     case actions.REMOVE_DIRECTORY_IN_SYSTEM: {
@@ -102,7 +106,13 @@ const fileSystemReducers = (state = initialState, action) => {
         (dir) => dir.name === folderName && dir.type === "folder"
       );
       curDir.splice(index, 1);
+      localSave("fileSystem", [...state]);
       return [...state];
+    }
+    case actions.PREVIOUS_STATE_SET: {
+      let previousState = JSON.parse(localStorage.getItem("fileSystem"));
+      if (previousState) return [...previousState];
+      else return state;
     }
     default:
       return state;

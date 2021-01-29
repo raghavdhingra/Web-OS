@@ -29,7 +29,7 @@ const initialState = [
         link: "https://archive.raghavdhingra.com",
         inPage: false,
       },
-      { name: "Extra", type: "folder", child: [] },
+      { name: "Extra", type: "file", child: "Text Editor" },
     ],
   },
   {

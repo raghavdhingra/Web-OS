@@ -3,12 +3,13 @@ import DesktopIcon from "./desktopIcon";
 import ContextMenu from "./ContextMenu";
 import { connect } from "react-redux";
 import Explorer from "../explorer/explorer";
+import TextEditor from "../../files/TextEditor/TextEditor";
 import FOLDER_IMAGE from "../../../assets/icons/folder.svg";
 import FILE_IMAGE from "../../../assets/icons/file.svg";
 import { createActivity } from "../../../actions/createActivityAction";
 import "../../../assets/desktop/desktopWorkingArea.css";
 import { resetToDefault } from "../../../actions/desktopActions";
-import DialogBox from "../../desktop/dialogBox/dialogBox";
+import DialogBox from "../dialogBox/dialogBox";
 import {
   makeDirectoryAction,
   makeFileAction,
@@ -96,6 +97,14 @@ const DesktopWorkingArea = ({
         } else {
           window.open(system.link);
         }
+      } else {
+        createActivity({
+          name: system.name,
+          newApp: true,
+          image: iconChanger(system),
+          footer: null,
+          child: () => <TextEditor input={system.child} />,
+        });
       }
     }
   };

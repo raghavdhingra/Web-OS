@@ -117,7 +117,7 @@ const DesktopWorkingArea = ({
       }
     } else {
       // File Explorer Event
-      console.log("Event Clicked");
+      console.log("Open File Explorer");
     }
   };
   useEffect(() => {

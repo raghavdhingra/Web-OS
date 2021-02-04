@@ -7,6 +7,7 @@ const initialState = [
   {
     name: "desktop",
     type: "folder",
+    location: [],
     child: [
       {
         name: "Portfolio",

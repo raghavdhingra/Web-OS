@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;700&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;700&display=swap"); */
 @import url("https://fonts.googleapis.com/css2?family=Potta+One&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Raleway&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
@@ -23,6 +23,12 @@
 }
 .font-lobster {
   font-family: "Lobster", cursive;
+}
+.font-times {
+  font-family: "Times New Roman", Times, serif;
+}
+.font-courier {
+  font-family: "Courier New", Courier, monospace;
 }
 .centralise {
   display: flex;

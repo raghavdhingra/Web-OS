@@ -100,3 +100,21 @@
 .reset-button:active {
   background-color: #0002;
 }
+
+/* Personalise */
+.personalise-2-grid {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+.personalise-2-grid:first-child {
+  margin-top: 0;
+}
+.personalise-2-grid:last-child {
+  margin-bottom: 0;
+}
+.personalise-text {
+  font-size: 1rem;
+  color: #000c;
+}

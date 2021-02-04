@@ -16,12 +16,13 @@ import "../../assets/desktop/desktop.css";
 const Desktop = ({
   brightness,
   background,
-  changeBackImage,
-  changeFontStyle,
   fontStyle,
   previousStateSet,
+  isFullScreen,
 }) => {
-  useEffect(() => previousStateSet(), [previousStateSet]);
+  useEffect(() => {
+    previousStateSet();
+  }, [previousStateSet]);
   const backgroundArray = useMemo(
     () => [
       { img: Back1, cover: true },
@@ -39,21 +40,35 @@ const Desktop = ({
       { name: "Potta One", className: "font-potta" },
       { name: "Raleway", className: "font-raleway" },
       { name: "Lobster", className: "font-lobster" },
+      { name: "Times", className: "font-times" },
+      { name: "Courier", className: "font-courier" },
     ],
     []
   );
   useEffect(() => {
-    const imgNum = parseInt(localStorage.getItem("backImage"));
-    const fontStyleNum = parseInt(localStorage.getItem("fontStyle"));
-    if (imgNum) {
-      if (imgNum <= backgroundArray.length) changeBackImage(imgNum);
-      else changeBackImage(3);
-    } else changeBackImage(3);
-    if (fontStyleNum) {
-      if (fontStyleNum <= fontStyleArray.length) changeFontStyle(fontStyleNum);
-      else changeFontStyle(1);
-    } else changeFontStyle(1);
-  }, [backgroundArray, changeBackImage, fontStyleArray, changeFontStyle]);
+    const fullScrrenToggle = async () => {
+      try {
+        if (isFullScreen) {
+          let bodyE = document.documentElement;
+          if (bodyE.requestFullscreen) await document.body.requestFullscreen();
+          else if (bodyE.msRequestFullscreen)
+            await document.body.msRequestFullscreen();
+          else if (bodyE.webkitRequestFullscreen)
+            await document.body.webkitRequestFullscreen();
+          else if (bodyE.mozRequestFullScreen)
+            await document.body.mozRequestFullScreen();
+        } else {
+          if (document.exitFullscreen) await document.exitFullscreen();
+          else if (document.webkitExitFullscreen)
+            await document.webkitExitFullscreen();
+          else if (document.msExitFullscreen) await document.msExitFullscreen();
+        }
+      } catch (err) {
+        return null;
+      }
+    };
+    fullScrrenToggle();
+  }, [isFullScreen]);
   return (
     <>
       <PowerOff backImage={backgroundArray[background - 1]} />
@@ -80,6 +95,7 @@ const mapStateToProps = (state) => ({
   background: state.desktopReducers.background,
   brightness: state.desktopReducers.brightness,
   fontStyle: state.desktopReducers.fontStyle,
+  isFullScreen: state.desktopReducers.isFullScreen,
 });
 
 export default connect(mapStateToProps, {

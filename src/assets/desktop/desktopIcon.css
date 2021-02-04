@@ -21,3 +21,11 @@
   flex-direction: column;
   justify-content: center;
 }
+.desktop-icon-text {
+  /* display: inline-block; */
+  width: 75px;
+  margin: 0 auto;
+  white-space: nowrap;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
+}

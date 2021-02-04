@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import ThemeChanger from "./components/ThemeChanger";
 import FontChanger from "./components/FontChanger";
+import Personalise from "./components/Personalise";
 import { resetToDefault } from "../../../actions/desktopActions";
 import DialogBox from "../../desktop/dialogBox/dialogBox";
 import "../../../assets/files/settings.css";
@@ -10,14 +11,18 @@ const Settings = ({ resetToDefault }) => {
   const [settingIndex, setSettingIndex] = useState(0);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-  const settingsArray = [
-    { name: "Theme", component: <ThemeChanger /> },
-    { name: "Font Style", component: <FontChanger /> },
-    {
-      name: "Reset to Default",
-      onClick: () => setIsDialogOpen(true),
-    },
-  ];
+  const settingsArray = useMemo(
+    () => [
+      { name: "Theme", component: <ThemeChanger /> },
+      { name: "Font Style", component: <FontChanger /> },
+      { name: "Personalise", component: <Personalise /> },
+      {
+        name: "Reset to Default",
+        onClick: () => setIsDialogOpen(true),
+      },
+    ],
+    []
+  );
   const resetSuccess = () => {
     setIsDialogOpen(false);
     resetToDefault();

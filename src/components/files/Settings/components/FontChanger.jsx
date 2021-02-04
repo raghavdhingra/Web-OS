@@ -9,6 +9,8 @@ const FontChanger = ({ changeFontStyle, font }) => {
       { name: "Potta One", className: "font-potta" },
       { name: "Raleway", className: "font-raleway" },
       { name: "Lobster", className: "font-lobster" },
+      { name: "Times", className: "font-times" },
+      { name: "Courier", className: "font-courier" },
     ],
     []
   );

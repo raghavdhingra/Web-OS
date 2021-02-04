@@ -38,9 +38,9 @@ export const changeTextInFile = (payload) => async (dispatch) => {
     console.log(err);
   }
 };
-export const previousStateSet = (payload) => async (dispatch) => {
+export const previousStateSet = () => async (dispatch) => {
   try {
-    dispatch({ type: actions.PREVIOUS_STATE_SET, payload });
+    await dispatch({ type: actions.PREVIOUS_STATE_SET });
   } catch (err) {
     console.log(err);
   }

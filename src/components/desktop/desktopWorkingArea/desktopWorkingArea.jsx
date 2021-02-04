@@ -8,7 +8,10 @@ import FOLDER_IMAGE from "../../../assets/icons/folder.svg";
 import FILE_IMAGE from "../../../assets/icons/file.svg";
 import { createActivity } from "../../../actions/createActivityAction";
 import "../../../assets/desktop/desktopWorkingArea.css";
-import { resetToDefault } from "../../../actions/desktopActions";
+import {
+  resetToDefault,
+  toggleFullScreen,
+} from "../../../actions/desktopActions";
 import DialogBox from "../dialogBox/dialogBox";
 import {
   makeDirectoryAction,
@@ -42,6 +45,8 @@ const DesktopWorkingArea = ({
   resetToDefault,
   makeFileAction,
   makeDirectoryAction,
+  isFullScreen,
+  toggleFullScreen,
 }) => {
   const desktopWorkingRef = useRef(null);
   const [newDir, setNewDir] = useState({
@@ -52,7 +57,7 @@ const DesktopWorkingArea = ({
   const [contextShown, setContextShown] = useState(false);
   const [resetSettingsOpen, setResetSettingsOpen] = useState(false);
   const [contextPosition, setContextPosition] = useState({ top: 0, left: 0 });
-  const contextMenuHeight = 205;
+  const contextMenuHeight = 232;
 
   const contextArray = [
     { name: "Menu", onClick: () => {} },
@@ -68,6 +73,10 @@ const DesktopWorkingArea = ({
     {
       name: "Customise Display",
       onClick: () => createActivity({ name: "settings" }),
+    },
+    {
+      name: isFullScreen ? "Exit Full Screen" : "Enter Full Screen",
+      onClick: () => toggleFullScreen(),
     },
     { name: "Reset Settings", onClick: () => setResetSettingsOpen(true) },
   ];
@@ -106,6 +115,8 @@ const DesktopWorkingArea = ({
           child: () => <TextEditor system={system} />,
         });
       }
+    } else {
+      // File Explorer Event
     }
   };
   useEffect(() => {
@@ -206,6 +217,7 @@ const DesktopWorkingArea = ({
 
 const mapStateToProps = (state) => ({
   activityList: state.activityReducers.activity,
+  isFullScreen: state.desktopReducers.isFullScreen,
   fileSystem: state.fileSystemReducers,
 });
 
@@ -213,5 +225,6 @@ export default connect(mapStateToProps, {
   createActivity,
   makeDirectoryAction,
   resetToDefault,
+  toggleFullScreen,
   makeFileAction,
 })(DesktopWorkingArea);

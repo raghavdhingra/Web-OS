@@ -2,7 +2,6 @@ import * as actions from "./types";
 
 export const changeBackImage = (payload) => async (dispatch) => {
   try {
-    localStorage.setItem("backImage", payload);
     await dispatch({
       type: actions.BACK_IMAGE_CHANGE,
       payload: {
@@ -13,15 +12,33 @@ export const changeBackImage = (payload) => async (dispatch) => {
     console.log(err);
   }
 };
+export const changeSingleClickIcon = (payload) => async (dispatch) => {
+  try {
+    await dispatch({
+      type: actions.SINGLE_CLICK_ICON_CHANGE,
+      payload: {
+        singleClickIcon: payload,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
 export const changeFontStyle = (payload) => async (dispatch) => {
   try {
-    localStorage.setItem("fontStyle", payload);
     await dispatch({
       type: actions.FONT_STYLE_CHANGE,
       payload: {
         fontStyle: payload,
       },
     });
+  } catch (err) {
+    console.log(err);
+  }
+};
+export const toggleFullScreen = () => async (dispatch) => {
+  try {
+    await dispatch({ type: actions.TOGGLE_FULL_SCREEN });
   } catch (err) {
     console.log(err);
   }

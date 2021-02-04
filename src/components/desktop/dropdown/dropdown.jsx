@@ -5,6 +5,7 @@ import Brightness from "../../../assets/icons/brightness.svg";
 import {
   changeBrightness,
   powerOffStatus,
+  toggleFullScreen,
 } from "../../../actions/desktopActions";
 import { connect } from "react-redux";
 import "../../../assets/desktop/dropdown.css";
@@ -16,6 +17,8 @@ const DropDown = ({
   changeBrightness,
   brightness,
   powerOffStatus,
+  isFullScreen,
+  toggleFullScreen,
 }) => {
   const [isPowerDialogOpen, setPowerDialog] = useState(false);
   const togglePowerDialog = () => setPowerDialog(!isPowerDialogOpen);
@@ -78,6 +81,10 @@ const DropDown = ({
             {battery.charging ? "Charging" : "Not charging"})
           </div>
           <div className="dropdown-hr"></div>
+          <div className="drop-down-items" onClick={() => toggleFullScreen()}>
+            {isFullScreen ? "Exit Full Screen" : "Enter Full Screen"}
+          </div>
+          <div className="dropdown-hr"></div>
           <div className="drop-down-items cursor-pointer">Log out</div>
           <div
             className="drop-down-items cursor-pointer"
@@ -96,8 +103,11 @@ const mapStateToProps = (state) => ({
   battery: state.desktopReducers.battery,
   isOnline: state.desktopReducers.isOnline,
   networkType: state.desktopReducers.networkType,
+  isFullScreen: state.desktopReducers.isFullScreen,
 });
 
-export default connect(mapStateToProps, { changeBrightness, powerOffStatus })(
-  DropDown
-);
+export default connect(mapStateToProps, {
+  changeBrightness,
+  powerOffStatus,
+  toggleFullScreen,
+})(DropDown);

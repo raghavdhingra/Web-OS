@@ -162,14 +162,22 @@ const DesktopWorkingArea = ({
     } else alert("Please Enter a name");
   };
   const renderDesktopIcons = useCallback(
-    ({ desktopIcons }) => {
-      console.log(workingAreaHeight);
+    ({ allIcons }) => {
       let desktopIconHTML = [];
       let outerIconsArray = [];
       if (workingAreaHeight) {
-        let numberOfIcons = parseInt(workingAreaHeight / 90) - 1;
-        console.log(numberOfIcons);
+        let desktopIcons = [...allIcons[0].child];
+        let numberOfIcons = parseInt((workingAreaHeight - 30) / 90) - 1;
         if (desktopIcons.length > numberOfIcons) {
+          let initialSplitIndex = 0;
+          let numOfSplits = Math.ceil(desktopIcons.length / numberOfIcons);
+          for (let i = 1; i <= numOfSplits; i++) {
+            let arr = desktopIcons.splice(
+              initialSplitIndex,
+              initialSplitIndex + numberOfIcons
+            );
+            outerIconsArray.push(arr);
+          }
         } else outerIconsArray.push(desktopIcons);
         desktopIconHTML = outerIconsArray.map((desktopIcon, ind) => (
           <div key={`outer-icons-${ind}`}>
@@ -242,7 +250,7 @@ const DesktopWorkingArea = ({
           fileSystems.fileSystem &&
           fileSystems.fileSystem.length &&
           renderDesktopIcons({
-            desktopIcons: fileSystems.fileSystem[0].child,
+            allIcons: fileSystems.fileSystem,
           })
         // fileSystems.fileSystem[0].child.map(
         //   (system, index) =>

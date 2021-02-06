@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import DesktopIcon from "./desktopIcon";
 import ContextMenu from "./ContextMenu";
 import { connect } from "react-redux";
@@ -57,6 +57,11 @@ const DesktopWorkingArea = ({
   const [contextShown, setContextShown] = useState(false);
   const [resetSettingsOpen, setResetSettingsOpen] = useState(false);
   const [contextPosition, setContextPosition] = useState({ top: 0, left: 0 });
+  const [workingAreaHeight, setWorkingAreaHeight] = useState(0);
+  useEffect(() => {
+    if (desktopWorkingRef && desktopWorkingRef.current)
+      setWorkingAreaHeight(desktopWorkingRef.current.clientHeight);
+  }, [desktopWorkingRef]);
   const contextMenuHeight = 232;
 
   const contextArray = [
@@ -156,21 +161,38 @@ const DesktopWorkingArea = ({
       setNewDir({ ...newDir, name: "", open: false, isFolder: false });
     } else alert("Please Enter a name");
   };
-  const renderDesktopIcons = ({ desktopIcons }) => {
-    let desktopIconHTML = desktopIcons.map(
-      (system, index) =>
-        system && (
-          <DesktopIcon
-            key={`desktop-icon-${index}`}
-            icon={iconChanger(system)}
-            name={system.name}
-            width={"60px"}
-            clickTask={() => startTask(system)}
-          />
-        )
-    );
-    return desktopIconHTML;
-  };
+  const renderDesktopIcons = useCallback(
+    ({ desktopIcons }) => {
+      console.log(workingAreaHeight);
+      let desktopIconHTML = [];
+      let outerIconsArray = [];
+      if (workingAreaHeight) {
+        let numberOfIcons = parseInt(workingAreaHeight / 90) - 1;
+        console.log(numberOfIcons);
+        if (desktopIcons.length > numberOfIcons) {
+        } else outerIconsArray.push(desktopIcons);
+        desktopIconHTML = outerIconsArray.map((desktopIcon, ind) => (
+          <div key={`outer-icons-${ind}`}>
+            {desktopIcon.map(
+              (system, index) =>
+                system && (
+                  <DesktopIcon
+                    key={`desktop-icon-${index}`}
+                    icon={iconChanger(system)}
+                    name={system.name}
+                    width={"60px"}
+                    clickTask={() => startTask(system)}
+                  />
+                )
+            )}
+          </div>
+        ));
+      }
+      return <>{desktopIconHTML}</>;
+    },
+    // eslint-disable-next-line
+    [workingAreaHeight]
+  );
   return (
     // No Parent component Other than the main div
     <div className="desktop-area-container" ref={desktopWorkingRef}>

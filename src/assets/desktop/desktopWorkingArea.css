@@ -2,6 +2,7 @@
   height: 100%;
   width: 100%;
   padding: 0.8rem;
+  box-sizing: border-box;
   display: grid;
   grid-template-columns: repeat(10, auto) 1fr;
 }

@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { connect } from "react-redux";
 import { removeActivity } from "../../../actions/activityActions";
+import { resetToDefault } from "../../../actions/desktopActions";
 import {
   makeDirectoryAction,
   removeDirectoryAction,
@@ -35,6 +36,7 @@ const TerminalWindow = ({
   removeActivity,
   makeDirectoryAction,
   removeDirectoryAction,
+  resetToDefault,
   supplement: { terminalLocation },
 }) => {
   const printOutput = ({ inputPath, command, error, success, startState }) => {
@@ -253,6 +255,14 @@ const TerminalWindow = ({
       printOutput({ inputPath, command });
     }
   };
+  const resetCommand = ({ inputPath, command }) => {
+    printOutput({
+      inputPath,
+      command,
+      success: "System settings and file system have been reset",
+    });
+    resetToDefault();
+  };
 
   const commandList = [
     {
@@ -299,6 +309,11 @@ const TerminalWindow = ({
       invoke: "pwd",
       onActive: pwdCommand,
       description: "Returns the working directory of the terminal",
+    },
+    {
+      invoke: "reset",
+      onActive: resetCommand,
+      description: "Resets everything (settings and file system)",
     },
     {
       invoke: "exit",
@@ -386,4 +401,5 @@ export default connect(mapStateToProps, {
   removeActivity,
   makeDirectoryAction,
   removeDirectoryAction,
+  resetToDefault,
 })(TerminalWindow);

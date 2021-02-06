@@ -156,6 +156,21 @@ const DesktopWorkingArea = ({
       setNewDir({ ...newDir, name: "", open: false, isFolder: false });
     } else alert("Please Enter a name");
   };
+  const renderDesktopIcons = ({ desktopIcons }) => {
+    let desktopIconHTML = desktopIcons.map(
+      (system, index) =>
+        system && (
+          <DesktopIcon
+            key={`desktop-icon-${index}`}
+            icon={iconChanger(system)}
+            name={system.name}
+            width={"60px"}
+            clickTask={() => startTask(system)}
+          />
+        )
+    );
+    return desktopIconHTML;
+  };
   return (
     // No Parent component Other than the main div
     <div className="desktop-area-container" ref={desktopWorkingRef}>
@@ -200,21 +215,25 @@ const DesktopWorkingArea = ({
             />
           )
       )}
-      {fileSystems &&
-        fileSystems.fileSystem &&
-        fileSystems.fileSystem.length &&
-        fileSystems.fileSystem[0].child.map(
-          (system, index) =>
-            system && (
-              <DesktopIcon
-                key={`desktop-icon-${index}`}
-                icon={iconChanger(system)}
-                name={system.name}
-                width={"60px"}
-                clickTask={() => startTask(system)}
-              />
-            )
-        )}
+      {
+        fileSystems &&
+          fileSystems.fileSystem &&
+          fileSystems.fileSystem.length &&
+          renderDesktopIcons({
+            desktopIcons: fileSystems.fileSystem[0].child,
+          })
+        // fileSystems.fileSystem[0].child.map(
+        //   (system, index) =>
+        //     system && (
+        //       <DesktopIcon
+        //         key={`desktop-icon-${index}`}
+        //         icon={iconChanger(system)}
+        //         name={system.name}
+        //         width={"60px"}
+        //         clickTask={() => startTask(system)}
+        //       />
+        //     ))
+      }
     </div>
   );
 };

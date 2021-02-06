@@ -40,7 +40,7 @@ const IframeContainer = ({ system }) => {
 
 const DesktopWorkingArea = ({
   activityList,
-  fileSystem,
+  fileSystems,
   createActivity,
   resetToDefault,
   makeFileAction,
@@ -199,18 +199,21 @@ const DesktopWorkingArea = ({
             />
           )
       )}
-      {fileSystem[0].child.map(
-        (system, index) =>
-          system && (
-            <DesktopIcon
-              key={`desktop-icon-${index}`}
-              icon={iconChanger(system)}
-              name={system.name}
-              width={"60px"}
-              clickTask={() => startTask(system)}
-            />
-          )
-      )}
+      {fileSystems &&
+        fileSystems.fileSystem &&
+        fileSystems.fileSystem.length &&
+        fileSystems.fileSystem[0].child.map(
+          (system, index) =>
+            system && (
+              <DesktopIcon
+                key={`desktop-icon-${index}`}
+                icon={iconChanger(system)}
+                name={system.name}
+                width={"60px"}
+                clickTask={() => startTask(system)}
+              />
+            )
+        )}
     </div>
   );
 };
@@ -218,7 +221,7 @@ const DesktopWorkingArea = ({
 const mapStateToProps = (state) => ({
   activityList: state.activityReducers.activity,
   isFullScreen: state.desktopReducers.isFullScreen,
-  fileSystem: state.fileSystemReducers,
+  fileSystems: state.fileSystemReducers,
 });
 
 export default connect(mapStateToProps, {

@@ -91,7 +91,6 @@ const Desktop = ({
 };
 
 const mapStateToProps = (state) => ({
-  dropDownOpen: state.desktopReducers.dropDownOpen,
   background: state.desktopReducers.background,
   brightness: state.desktopReducers.brightness,
   fontStyle: state.desktopReducers.fontStyle,

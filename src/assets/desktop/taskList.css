@@ -77,10 +77,6 @@
   top: 34px !important;
   left: 66px !important;
 }
-.flex-end {
-  justify-content: flex-end;
-  margin-left: 1.5rem;
-}
 .activity-close-btn {
   height: 0.81rem;
   width: 0.81rem;

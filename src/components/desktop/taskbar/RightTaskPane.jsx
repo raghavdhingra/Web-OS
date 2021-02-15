@@ -57,7 +57,6 @@ const RightTaskPane = ({
   }, []);
   return (
     <div className="right-task-item-container">
-      {console.log(dropDownOpen)}
       <div onClick={toggleDropDown}>
         <div className="right-displayed-container">
           <div className="centralise">

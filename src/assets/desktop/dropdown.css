@@ -11,6 +11,11 @@
 .drop-drop-caret-pointed-container {
   transform: rotate(180deg);
 }
+.flex-end {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  margin-left: 1.5rem;
+}
 .drop-drop-caret-pointed {
   transform: translateX(10px);
 }

@@ -63,10 +63,11 @@ const TaskList = ({
           <>
             <div className="drop-down-container activity-list-container">
               <div className="drop-drop-caret-pointed-container flex-end">
+                <div></div>
                 <img
                   src={DropDownCaret}
                   className="drop-drop-caret-pointed"
-                  width="10px"
+                  width="13px"
                   alt="drop down"
                 />
               </div>

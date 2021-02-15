@@ -1,5 +1,5 @@
 import React from "react";
-import TerminalImage from "../assets/icons/terminal.png";
+import TerminalImage from "../assets/icons/terminal.svg";
 import CameraImage from "../assets/icons/camera.svg";
 import BrowserImage from "../assets/icons/browser.svg";
 import SettingsImage from "../assets/icons/setting.svg";

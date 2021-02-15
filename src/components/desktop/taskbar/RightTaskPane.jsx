@@ -27,7 +27,9 @@ const RightTaskPane = ({
   };
   const getStatus = async () => {
     // battery  status
-    let batteryObj = await navigator.getBattery();
+    let batteryObj;
+    if (navigator.getBattery) batteryObj = await navigator.getBattery();
+    else batteryObj = { level: 1, charging: true };
     const { level, charging } = batteryObj;
     batteryStatus({ level, charging });
 
@@ -39,7 +41,8 @@ const RightTaskPane = ({
       navigator.connection ||
       navigator.mozConnection ||
       navigator.webkitConnection;
-    networkType(connection.effectiveType);
+
+    networkType(connection ? connection.effectiveType : "4g");
 
     // date status
     dateStatus(new Date());
@@ -54,32 +57,36 @@ const RightTaskPane = ({
   }, []);
   return (
     <div className="right-task-item-container">
-      <div className="centralise" onClick={toggleDropDown}>
+      {console.log(dropDownOpen)}
+      <div onClick={toggleDropDown}>
         <div className="right-displayed-container">
-          <div className="right-task-item">
+          <div className="centralise">
             <img src={Wifi} height="17px" alt="Wifi" />
           </div>
-          <div className="right-task-item">
-            <span style={{ height: "19px", overflow: "hidden" }}>
-              <img src={Battery} height="17px" alt="Battery" />
-              {battery && battery.charging ? (
-                <img
-                  src={Charging}
-                  className="charging-icon"
-                  height="10px"
-                  alt="Charging"
-                />
-              ) : null}
-            </span>
-            &nbsp;
+          <div className="centralise">
+            {battery && battery.charging ? (
+              <img
+                src={Charging}
+                className="charging-icon"
+                height="12px"
+                alt="Charging"
+              />
+            ) : null}
+          </div>
+          <div className="centralise">
+            <img src={Battery} height="17px" alt="Battery" />
+          </div>
+          <div className="centralise">
             <div>{battery && parseInt(battery.level * 100)}%</div>
           </div>
-          <div
-            className={`right-task-item drop-caret ${
-              dropDownOpen ? "drop-caret-up" : ""
-            }`}
-          >
-            <img src={DropDownCaret} alt="dropdown" width="10px" />
+          <div className="centralise">
+            <div
+              className={`right-task-item ${
+                dropDownOpen ? "drop-caret-up" : ""
+              }`}
+            >
+              <img src={DropDownCaret} alt="dropdown" width="10px" />
+            </div>
           </div>
         </div>
         {dropDownOpen ? (

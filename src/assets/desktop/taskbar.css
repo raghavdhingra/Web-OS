@@ -17,6 +17,9 @@
 .right-displayed-container {
   cursor: pointer;
   transition: 0.2s ease;
+  display: grid;
+  gap: 0.5rem;
+  grid-template-columns: repeat(5, auto);
 }
 .right-displayed-container-after {
   content: "";
@@ -26,19 +29,11 @@
   height: 3px;
   position: absolute;
   border-radius: 10px;
-  transform: translateY(13px);
-}
-.right-task-item {
-  margin: 0 0.4rem;
-  display: inline-flex;
+  transform: translateY(5px);
 }
 .drop-caret {
   transition: 0.2s ease;
-  transform: translateY(-3px);
 }
 .drop-caret-up {
-  transform: translateY(-3px) rotate(180deg);
-}
-.charging-icon {
-  transform: translateY(-4px);
+  transform: rotate(180deg);
 }

@@ -9,8 +9,6 @@
   z-index: 10;
 }
 .drop-drop-caret-pointed-container {
-  display: flex;
-  flex-direction: row;
   transform: rotate(180deg);
 }
 .drop-drop-caret-pointed {

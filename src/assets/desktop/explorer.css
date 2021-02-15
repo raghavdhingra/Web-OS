@@ -49,6 +49,9 @@
 .explorer-close-btn:hover {
   background-color: #fff4;
 }
+.explorer-close-icon-translate {
+  transform: translateY(-2px);
+}
 .explorer-body {
   background-color: #fff;
   color: #212121;

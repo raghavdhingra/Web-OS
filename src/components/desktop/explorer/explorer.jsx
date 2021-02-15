@@ -162,7 +162,7 @@ const Explorer = ({
             className="explorer-close-btn explorer-close-color"
             onClick={closeActivity}
           >
-            &times;
+            <div className="explorer-close-icon-translate">&times;</div>
           </div>
         </div>
       </div>

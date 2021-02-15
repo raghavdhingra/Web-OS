@@ -77,6 +77,14 @@
   top: 34px !important;
   left: 66px !important;
 }
+.activity-list-nav-grid {
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 0.5rem;
+}
+.down-caret-arrow-translate {
+  transform: translateY(-2px);
+}
 .activity-close-btn {
   height: 0.81rem;
   width: 0.81rem;

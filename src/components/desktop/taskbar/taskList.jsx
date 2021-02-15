@@ -57,7 +57,12 @@ const TaskList = ({
               </svg>
             </div>
           )}
-          <div className="centralise">Activity List ▾</div>
+          <div className="activity-list-nav-grid">
+            <div className="centralise">Activity List</div>
+            <div className="centralise">
+              <div className="down-caret-arrow-translate">▾</div>
+            </div>
+          </div>
         </div>
         {activityDropDown && (
           <>

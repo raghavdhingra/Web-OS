@@ -71,7 +71,6 @@ const Desktop = ({
   }, [isFullScreen]);
   return (
     <>
-      <PowerOff backImage={backgroundArray[background - 1]} />
       <div
         className={`desktop-container ${
           backgroundArray[background - 1].cover ? "image-cover" : ""
@@ -86,6 +85,7 @@ const Desktop = ({
           <LowerDesktop />
         </div>
       </div>
+      <PowerOff backImage={backgroundArray[background - 1]} />
     </>
   );
 };

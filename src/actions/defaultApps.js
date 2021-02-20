@@ -15,7 +15,12 @@ export const defaultApps = [
     image: TerminalImage,
     width: "40px",
     key: "terminal",
-    child: (supplement) => <TerminalWindow supplement={supplement} />,
+    child: (supplement) => (
+      <TerminalWindow
+        supplement={supplement}
+        // supplement={{ terminalLocation: ["desktop"] }}
+      />
+    ),
     // footer: nullFunction,
   },
   {

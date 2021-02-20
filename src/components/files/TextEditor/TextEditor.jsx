@@ -8,7 +8,7 @@ const TextEditor = ({ system, fileSystem, changeTextInFile }) => {
 
   useEffect(() => textAreaRef.current.focus(), []);
   useEffect(() => {
-    let curDir = fileSystem;
+    let curDir = fileSystem.fileSystem;
     system.location.forEach(
       (path) => (curDir = curDir.find((system) => system.name === path).child)
     );

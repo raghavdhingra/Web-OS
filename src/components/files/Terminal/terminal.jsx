@@ -10,9 +10,12 @@ import "../../../assets/files/terminal.css";
 const OutputDivision = ({ inputPath, command, error, success, startState }) => {
   if (startState)
     return (
-      <div className="terminal-main-content terminal-blue">
-        Welcome to Web OS
-      </div>
+      <>
+        <div className="terminal-main-content terminal-blue">
+          Welcome to Web OS
+        </div>
+        <div className="terminal-output">Type "help" for all the commands</div>
+      </>
     );
 
   return (
@@ -32,6 +35,7 @@ const TerminalWindow = ({
   removeActivity,
   makeDirectoryAction,
   removeDirectoryAction,
+  supplement: { terminalLocation },
 }) => {
   const printOutput = ({ inputPath, command, error, success, startState }) => {
     let outputCommand = (
@@ -55,11 +59,7 @@ const TerminalWindow = ({
 
   const emptyTextRef = () => {
     setTimeout(() => {
-      try {
-        TextRef.current.innerText = "";
-      } catch (err) {
-        return null;
-      }
+      if (TextRef.current) TextRef.current.innerText = "";
     }, 10);
   };
 
@@ -290,7 +290,7 @@ const TerminalWindow = ({
         "Make a directory within current folder | One parameter (required)",
     },
     {
-      invoke: "rmdir",
+      invoke: "rm",
       onActive: removeDirectory,
       description:
         "Remove a directory within current folder | One parameter (required)",
@@ -341,7 +341,16 @@ const TerminalWindow = ({
       TextRef.current.innerText = historyCommands[lastIndex - historyIndex];
     }
   };
-  useEffect(() => focusTextRef(), []);
+  useEffect(() => {
+    focusTextRef();
+  }, []);
+  useEffect(() => {
+    if (terminalLocation && terminalLocation.length) {
+      let innerPath = terminalLocation.join("/");
+      setInputPath(`/${innerPath}/`);
+    }
+    // eslint-disable-next-line
+  }, []);
 
   return (
     <>
@@ -370,7 +379,7 @@ const TerminalWindow = ({
 };
 
 const mapStateToProps = (state) => ({
-  fileSystem: state.fileSystemReducers,
+  fileSystem: state.fileSystemReducers.fileSystem,
   activityList: state.activityReducers.activity,
 });
 export default connect(mapStateToProps, {

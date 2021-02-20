@@ -41,7 +41,7 @@
 }
 @keyframes opacAnim {
   from {
-    transform: scaleY(0.5);
+    transform: scaleY(0.8);
     opacity: 0;
   }
   to {

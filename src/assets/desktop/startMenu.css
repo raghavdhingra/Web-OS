@@ -1,0 +1,6 @@
+.start-menu-container {
+  position: fixed;
+  top: 30px;
+  left: 61px;
+  height: calc(100vh - 33px);
+}

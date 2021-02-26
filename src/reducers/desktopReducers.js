@@ -7,6 +7,7 @@ const initialState = {
   dropDownOpen: false,
   singleClickIcon: false,
   isFullScreen: false,
+  isStartMenuOpen: false,
   battery: {
     level: 0,
     charging: false,
@@ -28,6 +29,10 @@ const desktopReducers = (state = initialState, action) => {
     case actions.TOGGLE_DROP_DOWN: {
       let { dropDownOpen } = payload;
       return { ...state, dropDownOpen };
+    }
+    case actions.TOGGLE_START_MENU: {
+      let { startMenuOpen } = payload;
+      return { ...state, isStartMenuOpen: startMenuOpen };
     }
     case actions.TOGGLE_FULL_SCREEN: {
       return { ...state, isFullScreen: !state.isFullScreen };

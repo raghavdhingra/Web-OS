@@ -17,6 +17,7 @@ import {
   makeDirectoryAction,
   makeFileAction,
 } from "../../../actions/fileSystemActions";
+import StartMenu from "../startMenu/startMenu";
 
 const LinkFooter = ({ system }) => {
   return (
@@ -204,6 +205,7 @@ const DesktopWorkingArea = ({
   return (
     // No Parent component Other than the main div
     <div className="desktop-area-container" ref={desktopWorkingRef}>
+      <StartMenu />
       <DialogBox
         onSuccess={resetSuccess}
         onCancel={() => setResetSettingsOpen(false)}

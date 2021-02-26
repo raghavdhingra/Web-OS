@@ -54,6 +54,7 @@
 }
 .context-menu-content {
   padding: 0.4rem 1rem;
+  box-sizing: border-box;
   margin: 0.1rem 0;
   cursor: pointer;
   transition: 0.2s ease;

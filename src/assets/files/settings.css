@@ -8,10 +8,12 @@
   overflow-y: auto;
   overflow-x: hidden;
   padding: 0.5rem 0;
+  box-sizing: border-box;
   border-right: 1px solid rgb(207, 207, 207);
 }
 .settings-left-button {
   padding: 0.5rem 1rem;
+  box-sizing: border-box;
   cursor: pointer;
 }
 .settings-left-button-active {
@@ -91,6 +93,7 @@
   padding: 0.2rem 0.6rem;
   margin: 0.5rem 0;
   border-radius: 3px;
+  box-sizing: border-box;
   cursor: pointer;
   border: 1px solid #0004;
 }

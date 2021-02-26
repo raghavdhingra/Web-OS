@@ -70,6 +70,7 @@
 .activity-inner-container {
   border-radius: 3px;
   padding: 0.5rem 0 !important;
+  box-sizing: border-box;
   transform: translateY(-3px) !important;
 }
 .activity-list-container {

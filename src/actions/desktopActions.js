@@ -12,6 +12,18 @@ export const changeBackImage = (payload) => async (dispatch) => {
     console.log(err);
   }
 };
+export const changeStartMenu = (payload) => async (dispatch) => {
+  try {
+    await dispatch({
+      type: actions.TOGGLE_START_MENU,
+      payload: {
+        startMenuOpen: payload,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
 export const changeSingleClickIcon = (payload) => async (dispatch) => {
   try {
     await dispatch({

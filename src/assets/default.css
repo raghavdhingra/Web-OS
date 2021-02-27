@@ -60,6 +60,13 @@
   background-color: rgba(234, 84, 33, 0.9);
   border-radius: 10px;
 }
+.container-center {
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+  box-sizing: border-box;
+}
 .container {
   padding-right: 15px;
   padding-left: 15px;
@@ -73,6 +80,9 @@
 }
 @media (min-width: 992px) {
   .container {
+    width: 970px;
+  }
+  .container-center {
     width: 970px;
   }
 }

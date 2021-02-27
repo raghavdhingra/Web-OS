@@ -4,8 +4,16 @@ import "../../../assets/desktop/startMenu.css";
 
 const StartMenu = () => {
   return (
-    <div className={`start-menu-container`}>
-      <div>START MENU</div>
+    <div className="start-menu-container">
+      <div className="container-center">
+        <div className="search-field-container">
+          <input
+            type="text"
+            className="search-field"
+            placeholder="Type to search"
+          />
+        </div>
+      </div>
     </div>
   );
 };

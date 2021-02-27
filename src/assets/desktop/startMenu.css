@@ -1,3 +1,33 @@
 .start-menu-container {
+  background-color: #0005;
+  animation: fade-in 0.2s ease-in forwards;
+  opacity: 0;
   height: calc(100vh - 30px);
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.search-field-container {
+  margin: 1rem 0;
+  text-align: center;
+}
+input.search-field {
+  margin: 0 auto;
+  border-radius: 30px;
+  border: none;
+  max-width: 200px;
+  width: 100%;
+  color: #555;
+  padding: 0.3rem 0.8rem;
+}
+input.search-field::placeholder {
+  color: #0006;
+}
+input.search-field:focus {
+  outline: none;
 }

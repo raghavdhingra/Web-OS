@@ -21,6 +21,9 @@
 .left-nav-item:hover {
   background-color: #fff4;
 }
+.left-nav-item-active {
+  background-color: #fff2;
+}
 .left-nav-item:active {
   transform: scale(0.95);
 }

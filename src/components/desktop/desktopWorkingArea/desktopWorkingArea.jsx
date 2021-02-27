@@ -17,7 +17,6 @@ import {
   makeDirectoryAction,
   makeFileAction,
 } from "../../../actions/fileSystemActions";
-import StartMenu from "../startMenu/startMenu";
 
 const LinkFooter = ({ system }) => {
   return (
@@ -48,6 +47,7 @@ const DesktopWorkingArea = ({
   makeDirectoryAction,
   isFullScreen,
   toggleFullScreen,
+  isStartMenuOpen,
 }) => {
   const desktopWorkingRef = useRef(null);
   const [newDir, setNewDir] = useState({
@@ -205,7 +205,6 @@ const DesktopWorkingArea = ({
   return (
     // No Parent component Other than the main div
     <div className="desktop-area-container" ref={desktopWorkingRef}>
-      <StartMenu />
       <DialogBox
         onSuccess={resetSuccess}
         onCancel={() => setResetSettingsOpen(false)}
@@ -247,25 +246,12 @@ const DesktopWorkingArea = ({
             />
           )
       )}
-      {
-        fileSystems &&
-          fileSystems.fileSystem &&
-          fileSystems.fileSystem.length &&
-          renderDesktopIcons({
-            allIcons: fileSystems.fileSystem,
-          })
-        // fileSystems.fileSystem[0].child.map(
-        //   (system, index) =>
-        //     system && (
-        //       <DesktopIcon
-        //         key={`desktop-icon-${index}`}
-        //         icon={iconChanger(system)}
-        //         name={system.name}
-        //         width={"60px"}
-        //         clickTask={() => startTask(system)}
-        //       />
-        //     ))
-      }
+      {fileSystems &&
+        fileSystems.fileSystem &&
+        fileSystems.fileSystem.length &&
+        renderDesktopIcons({
+          allIcons: fileSystems.fileSystem,
+        })}
     </div>
   );
 };
@@ -273,6 +259,7 @@ const DesktopWorkingArea = ({
 const mapStateToProps = (state) => ({
   activityList: state.activityReducers.activity,
   isFullScreen: state.desktopReducers.isFullScreen,
+  isStartMenuOpen: state.desktopReducers.isStartMenuOpen,
   fileSystems: state.fileSystemReducers,
 });
 

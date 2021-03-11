@@ -1,5 +1,5 @@
-import { defaultApps } from "./defaultApps";
-import * as actions from "./types";
+import { applications } from './defaultApps';
+import * as actions from './types';
 
 export const createActivity = (payload) => async (dispatch) => {
   try {
@@ -10,13 +10,13 @@ export const createActivity = (payload) => async (dispatch) => {
       app = {
         name,
         image,
-        width: "40px",
+        width: '40px',
         key: name,
         child,
         footer,
       };
     } else {
-      app = defaultApps.find((app) => app.key === name);
+      app = applications.defaultApps.find((app) => app.key === name);
     }
     await dispatch({
       type: actions.CREATE_ACTIVITY,
@@ -31,10 +31,10 @@ export const createActivity = (payload) => async (dispatch) => {
           footer: app.footer,
           image: app.image,
           zIndex: 4,
-          top: "34px",
-          left: "60px",
-          height: "500px",
-          width: "750px",
+          top: '34px',
+          left: '60px',
+          height: '500px',
+          width: '750px',
           triggeredFunction: false,
         },
       },

@@ -16,6 +16,12 @@
   margin: 1rem 0;
   text-align: center;
 }
+.start-menu-container-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-rows: auto 1fr auto;
+  height: calc(100vh - 31px);
+}
 input.search-field {
   margin: 0 auto;
   border-radius: 0 30px 30px 0;
@@ -50,4 +56,60 @@ input.search-field:focus {
   margin-left: 0.6rem;
   margin-right: 0.5rem;
   cursor: text;
+}
+.start-application-container {
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+.start-menu-item {
+  height: 120px;
+  width: 110px;
+  padding: 1rem;
+  box-sizing: border-box;
+  cursor: pointer;
+  text-align: center;
+  margin: 0 auto;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  gap: 0.5rem;
+  transition: 0.2s ease;
+  font-size: 1.2rem;
+  border-radius: 3px;
+}
+.start-menu-item:hover {
+  background-color: #ffffff15;
+  box-shadow: inset 1px 2px 10px 0 #ffffff15;
+}
+.start-menu-footer-grid {
+  display: grid;
+  width: max-content;
+  gap: 1rem;
+  margin: 1rem auto;
+  grid-template-columns: repeat(2, auto);
+}
+.start-menu-footer-item {
+  border-bottom: 0.2rem solid #0000;
+  padding: 0.5rem;
+  box-sizing: border-box;
+  cursor: pointer;
+  color: #fff8;
+  transition: 0.2s ease;
+}
+.start-menu-footer-item:hover {
+  color: #fff;
+}
+.start-menu-footer-item-active {
+  color: #fff;
+  border-color: #ea5421;
+}
+@media screen and (min-width: 600px) {
+  .start-application-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media screen and (min-width: 1000px) {
+  .start-application-container {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }

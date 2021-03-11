@@ -1,16 +1,16 @@
-import React, { useCallback } from "react";
-import { connect } from "react-redux";
+import React, { useCallback } from 'react';
+import { connect } from 'react-redux';
 import {
   dropDownToggle,
   activityDropDownToggle,
   changeStartMenu,
-} from "../../../actions/desktopActions";
-import { createActivity } from "../../../actions/createActivityAction";
-import NavItem from "./navItem";
-import DesktopWorkingArea from "../desktopWorkingArea/desktopWorkingArea";
-import { defaultApps } from "../../../actions/defaultApps";
-import StartMenu from "../startMenu/startMenu";
-import "../../../assets/desktop/lowerDesktop.css";
+} from '../../../actions/desktopActions';
+import { createActivity } from '../../../actions/createActivityAction';
+import NavItem from './navItem';
+import DesktopWorkingArea from '../desktopWorkingArea/desktopWorkingArea';
+import { applications } from '../../../actions/defaultApps';
+import StartMenu from '../startMenu/startMenu';
+import '../../../assets/desktop/lowerDesktop.css';
 
 const LowerDesktop = ({
   activityDropDown,
@@ -43,7 +43,7 @@ const LowerDesktop = ({
     <div className="lower-desktop-grid" onClick={closeDropDown}>
       <div className="left-navigation-bar">
         <div>
-          {defaultApps.map((app, index) => (
+          {applications.defaultApps.map((app, index) => (
             <NavItem
               key={`nav-list-${index}`}
               clickTask={() => createActivity({ name: app.key })}

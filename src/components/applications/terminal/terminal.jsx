@@ -1,12 +1,12 @@
-import React, { useEffect, useState, useRef } from "react";
-import { connect } from "react-redux";
-import { removeActivity } from "../../../actions/activityActions";
-import { resetToDefault } from "../../../actions/desktopActions";
+import React, { useEffect, useState, useRef } from 'react';
+import { connect } from 'react-redux';
+import { removeActivity } from '../../../actions/activityActions';
+import { resetToDefault } from '../../../actions/desktopActions';
 import {
   makeDirectoryAction,
   removeDirectoryAction,
-} from "../../../actions/fileSystemActions";
-import "../../../assets/files/terminal.css";
+} from '../../../actions/fileSystemActions';
+import '../../../assets/applications/terminal.css';
 
 const OutputDivision = ({ inputPath, command, error, success, startState }) => {
   if (startState)
@@ -51,8 +51,8 @@ const TerminalWindow = ({
     );
     setCommandOutput([...commandOutput, outputCommand]);
   };
-  const [inputPath, setInputPath] = useState("/");
-  const [historyCommands, setHistoryCommand] = useState(["help"]);
+  const [inputPath, setInputPath] = useState('/');
+  const [historyCommands, setHistoryCommand] = useState(['help']);
   const [historyIndex, setHistoryIndex] = useState(0);
   const [commandOutput, setCommandOutput] = useState([
     <OutputDivision startState={true} />,
@@ -61,7 +61,7 @@ const TerminalWindow = ({
 
   const emptyTextRef = () => {
     setTimeout(() => {
-      if (TextRef.current) TextRef.current.innerText = "";
+      if (TextRef.current) TextRef.current.innerText = '';
     }, 10);
   };
 
@@ -71,12 +71,12 @@ const TerminalWindow = ({
   const echoOnScreen = ({ command, tokens, isSudo }) => {
     if (isSudo) tokens.shift();
     tokens.shift();
-    return printOutput({ inputPath, command, success: tokens.join(" ") });
+    return printOutput({ inputPath, command, success: tokens.join(' ') });
   };
   const setInputPathConditionally = (pathArr) => {
     pathArr = pathArr.filter((system) => !!system);
-    if (pathArr.length) setInputPath(`/${pathArr.join("/")}/`);
-    else setInputPath("/");
+    if (pathArr.length) setInputPath(`/${pathArr.join('/')}/`);
+    else setInputPath('/');
   };
   const changeDirectory = ({ command, tokens, isSudo }) => {
     if (isSudo) tokens.shift();
@@ -88,21 +88,21 @@ const TerminalWindow = ({
           error: `"cd" command can't have more than 1 parameter`,
         });
       } else {
-        if (tokens[1] === "/") {
-          setInputPath("/");
+        if (tokens[1] === '/') {
+          setInputPath('/');
           return printOutput({ inputPath, command });
         }
-        let fullPath = inputPath.split("/").filter((path) => !!path);
-        let givenDirList = tokens[1].split("/").filter((path) => !!path);
+        let fullPath = inputPath.split('/').filter((path) => !!path);
+        let givenDirList = tokens[1].split('/').filter((path) => !!path);
         for (let i in givenDirList) {
-          if (givenDirList[i] === ".") break;
-          else if (givenDirList[i] === "..") {
+          if (givenDirList[i] === '.') break;
+          else if (givenDirList[i] === '..') {
             if (fullPath.length) fullPath.pop();
             else
               return printOutput({
                 inputPath,
                 command,
-                error: "Already on the base directory",
+                error: 'Already on the base directory',
               });
           } else fullPath.push(givenDirList[i]);
         }
@@ -110,14 +110,14 @@ const TerminalWindow = ({
         for (let j in fullPath) {
           try {
             curDir = curDir.find(
-              (dir) => dir.name === fullPath[j] && dir.type === "folder"
+              (dir) => dir.name === fullPath[j] && dir.type === 'folder'
             );
             curDir = curDir.child;
           } catch (err) {
             return printOutput({
               inputPath,
               command,
-              error: "No such directory exists",
+              error: 'No such directory exists',
             });
           }
         }
@@ -125,7 +125,7 @@ const TerminalWindow = ({
         return printOutput({ inputPath, command });
       }
     } catch (err) {
-      printOutput({ inputPath, command, error: "Please specify a folder" });
+      printOutput({ inputPath, command, error: 'Please specify a folder' });
     }
   };
   const exitTerminal = ({ command, tokens }) => {
@@ -137,7 +137,7 @@ const TerminalWindow = ({
       });
     }
     let activityIndex = activityList.findIndex(
-      (activity) => activity.name === "Terminal"
+      (activity) => activity.name === 'Terminal'
     );
     removeActivity(activityIndex);
   };
@@ -156,7 +156,7 @@ const TerminalWindow = ({
     return printOutput({ inputPath, command, success: childParameter });
   };
   const listInDirectory = ({ command }) => {
-    let pathArray = inputPath.split("/").filter((paths) => !!paths);
+    let pathArray = inputPath.split('/').filter((paths) => !!paths);
     let childParameter;
     try {
       let currentDir = fileSystem;
@@ -168,7 +168,7 @@ const TerminalWindow = ({
         <div className="terminal-file-system-grid">
           {currentDir.map((system, index) => (
             <React.Fragment key={`file-system-${index}`}>
-              <div className={system.type === "folder" ? "terminal-blue" : ""}>
+              <div className={system.type === 'folder' ? 'terminal-blue' : ''}>
                 {system.name}
               </div>
             </React.Fragment>
@@ -180,7 +180,7 @@ const TerminalWindow = ({
       return printOutput({
         inputPath,
         command,
-        error: "No such directory exists",
+        error: 'No such directory exists',
       });
     }
   };
@@ -193,29 +193,29 @@ const TerminalWindow = ({
       return printOutput({
         inputPath,
         command,
-        error: "Folder name should not have space between them",
+        error: 'Folder name should not have space between them',
       });
     else if (tokens.length === 1)
       return printOutput({
         inputPath,
         command,
-        error: "Please specify a folder name",
+        error: 'Please specify a folder name',
       });
     else {
-      let pathArr = inputPath.split("/").filter((path) => !!path);
+      let pathArr = inputPath.split('/').filter((path) => !!path);
       let curDir = fileSystem;
       pathArr.forEach(
         (path) => (curDir = curDir.find((system) => system.name === path).child)
       );
       let newFolderName = tokens[1];
       let index = curDir.filter(
-        (system) => system.type === "folder" && system.name === newFolderName
+        (system) => system.type === 'folder' && system.name === newFolderName
       );
       if (index.length > 0)
         return printOutput({
           inputPath,
           command,
-          error: "Folder with same name exist",
+          error: 'Folder with same name exist',
         });
       makeDirectoryAction({ pathArray: pathArr, folderName: newFolderName });
       printOutput({ inputPath, command });
@@ -227,29 +227,29 @@ const TerminalWindow = ({
       return printOutput({
         inputPath,
         command,
-        error: "Folder name should not have space between them",
+        error: 'Folder name should not have space between them',
       });
     else if (tokens.length === 1)
       return printOutput({
         inputPath,
         command,
-        error: "Please specify a folder name",
+        error: 'Please specify a folder name',
       });
     else {
-      let pathArr = inputPath.split("/").filter((path) => !!path);
+      let pathArr = inputPath.split('/').filter((path) => !!path);
       let curDir = fileSystem;
       pathArr.forEach(
         (path) => (curDir = curDir.find((system) => system.name === path).child)
       );
       let newFolderName = tokens[1];
       let index = curDir.filter(
-        (system) => system.type === "folder" && system.name === newFolderName
+        (system) => system.type === 'folder' && system.name === newFolderName
       );
       if (index.length === 0)
         return printOutput({
           inputPath,
           command,
-          error: "Folder with the given name does not exist",
+          error: 'Folder with the given name does not exist',
         });
       removeDirectoryAction({ pathArray: pathArr, folderName: newFolderName });
       printOutput({ inputPath, command });
@@ -259,66 +259,66 @@ const TerminalWindow = ({
     printOutput({
       inputPath,
       command,
-      success: "System settings and file system have been reset",
+      success: 'System settings and file system have been reset',
     });
     resetToDefault();
   };
 
   const commandList = [
     {
-      invoke: "help",
+      invoke: 'help',
       onActive: HelpTerminal,
       description:
-        "Return the list of commands that you can run on terminal | No parameter",
+        'Return the list of commands that you can run on terminal | No parameter',
     },
     {
-      invoke: "ls",
+      invoke: 'ls',
       onActive: listInDirectory,
       description:
-        "Return the list of all files and folder in current or specified directory | One parameter (optional)",
+        'Return the list of all files and folder in current or specified directory | One parameter (optional)',
     },
     {
-      invoke: "clear",
+      invoke: 'clear',
       onActive: clearScreen,
-      description: "Clears the terminal | No parameters",
+      description: 'Clears the terminal | No parameters',
     },
     {
-      invoke: "echo",
+      invoke: 'echo',
       onActive: echoOnScreen,
-      description: "Prints the word or the line on the terminal",
+      description: 'Prints the word or the line on the terminal',
     },
     {
-      invoke: "cd",
+      invoke: 'cd',
       onActive: changeDirectory,
       description:
-        "Change the directory of the terminal | One parameter (required)",
+        'Change the directory of the terminal | One parameter (required)',
     },
     {
-      invoke: "mkdir",
+      invoke: 'mkdir',
       onActive: makeDirectory,
       description:
-        "Make a directory within current folder | One parameter (required)",
+        'Make a directory within current folder | One parameter (required)',
     },
     {
-      invoke: "rm",
+      invoke: 'rm',
       onActive: removeDirectory,
       description:
-        "Remove a directory within current folder | One parameter (required)",
+        'Remove a directory within current folder | One parameter (required)',
     },
     {
-      invoke: "pwd",
+      invoke: 'pwd',
       onActive: pwdCommand,
-      description: "Returns the working directory of the terminal",
+      description: 'Returns the working directory of the terminal',
     },
     {
-      invoke: "reset",
+      invoke: 'reset',
       onActive: resetCommand,
-      description: "Resets everything (settings and file system)",
+      description: 'Resets everything (settings and file system)',
     },
     {
-      invoke: "exit",
+      invoke: 'exit',
       onActive: exitTerminal,
-      description: "Exits the terminal | No parameters",
+      description: 'Exits the terminal | No parameters',
     },
   ];
 
@@ -328,9 +328,9 @@ const TerminalWindow = ({
       setHistoryIndex(0);
       let command = TextRef.current.innerText;
       setHistoryCommand([...historyCommands, command]);
-      let tokens = command.trim().replace(/\s\s+/g, " ").split(" ");
+      let tokens = command.trim().replace(/\s\s+/g, ' ').split(' ');
       let isSudo = false;
-      if (tokens[0] === "sudo") isSudo = true;
+      if (tokens[0] === 'sudo') isSudo = true;
       else {
         let commandObj = commandList.find(
           (com) => com.invoke === tokens[0].toLowerCase()
@@ -361,7 +361,7 @@ const TerminalWindow = ({
   }, []);
   useEffect(() => {
     if (terminalLocation && terminalLocation.length) {
-      let innerPath = terminalLocation.join("/");
+      let innerPath = terminalLocation.join('/');
       setInputPath(`/${innerPath}/`);
     }
     // eslint-disable-next-line

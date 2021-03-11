@@ -1,17 +1,17 @@
-import React, { useState } from "react";
-import HOME_ICON from "../../../assets/icons/home.svg";
-import SEARCH_ICON from "../../../assets/icons/search.svg";
-import "../../../assets/files/browser.css";
+import React, { useState } from 'react';
+import HOME_ICON from '../../../assets/icons/home.svg';
+import SEARCH_ICON from '../../../assets/icons/search.svg';
+import '../../../assets/applications/browser.css';
 
 const Browser = () => {
-  const [browserLink, setBrowserLink] = useState("https://ekoru.org");
-  const [searchStr, setSearchStr] = useState("");
+  const [browserLink, setBrowserLink] = useState('https://ekoru.org');
+  const [searchStr, setSearchStr] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const searchBrowser = () => {
     if (searchStr) {
       setIsLoading(true);
       setBrowserLink(`https://ekoru.org/?q=${searchStr}`);
-      setSearchStr("");
+      setSearchStr('');
     }
   };
   const changeSearchStr = (e) => {
@@ -19,10 +19,10 @@ const Browser = () => {
     setSearchStr(e.target.value);
   };
   const homeLink = () => {
-    setBrowserLink("");
+    setBrowserLink('');
     setTimeout(() => {
       setIsLoading(true);
-      setBrowserLink("https://ekoru.org");
+      setBrowserLink('https://ekoru.org');
     }, 50);
   };
   return (
@@ -55,7 +55,7 @@ const Browser = () => {
               height="80px"
               width="80px"
               className="loader-rotate"
-              style={{ margin: "0 auto" }}
+              style={{ margin: '0 auto' }}
             >
               <circle className="loader-lg-browser" />
             </svg>

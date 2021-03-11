@@ -1,11 +1,11 @@
-import React, { useMemo, useState } from "react";
-import ThemeChanger from "./components/ThemeChanger";
-import FontChanger from "./components/FontChanger";
-import Personalise from "./components/Personalise";
-import { resetToDefault } from "../../../actions/desktopActions";
-import DialogBox from "../../desktop/dialogBox/dialogBox";
-import "../../../assets/files/settings.css";
-import { connect } from "react-redux";
+import React, { useMemo, useState } from 'react';
+import ThemeChanger from './components/ThemeChanger';
+import FontChanger from './components/FontChanger';
+import Personalise from './components/Personalise';
+import { resetToDefault } from '../../../actions/desktopActions';
+import DialogBox from '../../desktop/dialogBox/dialogBox';
+import '../../../assets/applications/settings.css';
+import { connect } from 'react-redux';
 
 const Settings = ({ resetToDefault }) => {
   const [settingIndex, setSettingIndex] = useState(0);
@@ -13,11 +13,11 @@ const Settings = ({ resetToDefault }) => {
 
   const settingsArray = useMemo(
     () => [
-      { name: "Theme", component: <ThemeChanger /> },
-      { name: "Font Style", component: <FontChanger /> },
-      { name: "Personalise", component: <Personalise /> },
+      { name: 'Theme', component: <ThemeChanger /> },
+      { name: 'Font Style', component: <FontChanger /> },
+      { name: 'Personalise', component: <Personalise /> },
       {
-        name: "Reset to Default",
+        name: 'Reset to Default',
         onClick: () => setIsDialogOpen(true),
       },
     ],
@@ -33,16 +33,16 @@ const Settings = ({ resetToDefault }) => {
         onSuccess={resetSuccess}
         onCancel={() => setIsDialogOpen(false)}
         isOpen={isDialogOpen}
-        successText={"Reset"}
-        heading={"Reset Settings"}
-        body={"Sure! You want to reset to your default settings?"}
+        successText={'Reset'}
+        heading={'Reset Settings'}
+        body={'Sure! You want to reset to your default settings?'}
       />
       <div className="settings-container">
         <div className="settings-left-container">
           {settingsArray.map((settings, index) => (
             <div
               className={`settings-left-button ${
-                settingIndex === index ? "settings-left-button-active" : ""
+                settingIndex === index ? 'settings-left-button-active' : ''
               }`}
               key={`settings-${index}`}
               onClick={() =>

@@ -1,20 +1,20 @@
-import React from "react";
-import TerminalImage from "../assets/icons/terminal.svg";
-import CameraImage from "../assets/icons/camera.svg";
-import BrowserImage from "../assets/icons/browser.svg";
-import SettingsImage from "../assets/icons/setting.svg";
-import TerminalWindow from "../components/files/Terminal/terminal";
-import Camera from "../components/files/camera/camera";
-import Browser from "../components/files/Browser/browser";
-import Settings from "../components/files/Settings/settings";
+import React from 'react';
+import TerminalImage from '../assets/icons/terminal.svg';
+import CameraImage from '../assets/icons/camera.svg';
+import BrowserImage from '../assets/icons/browser.svg';
+import SettingsImage from '../assets/icons/setting.svg';
+import TerminalWindow from '../components/applications/terminal/terminal';
+import Camera from '../components/applications/camera/camera';
+import Browser from '../components/applications/browser/browser';
+import Settings from '../components/applications/settings/settings';
 
 // const nullFunction = (supplement) => null;
 export const defaultApps = [
   {
-    name: "Terminal",
+    name: 'Terminal',
     image: TerminalImage,
-    width: "40px",
-    key: "terminal",
+    width: '40px',
+    key: 'terminal',
     child: (supplement) => (
       <TerminalWindow
         supplement={supplement}
@@ -24,24 +24,24 @@ export const defaultApps = [
     // footer: nullFunction,
   },
   {
-    name: "Browser",
+    name: 'Browser',
     image: BrowserImage,
-    width: "50px",
-    key: "browser",
+    width: '50px',
+    key: 'browser',
     child: (supplement) => <Browser supplement={supplement} />,
   },
   {
-    name: "Camera",
+    name: 'Camera',
     image: CameraImage,
-    width: "40px",
-    key: "camera",
+    width: '40px',
+    key: 'camera',
     child: (supplement) => <Camera supplement={supplement} />,
   },
   {
-    name: "Settings",
+    name: 'Settings',
     image: SettingsImage,
-    width: "50px",
-    key: "settings",
+    width: '50px',
+    key: 'settings',
     child: (supplement) => <Settings supplement={supplement} />,
   },
 ];

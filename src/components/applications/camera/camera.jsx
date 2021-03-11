@@ -1,8 +1,8 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import { connect } from "react-redux";
-import "../../../assets/files/camera.css";
-import DOWNLOAD_ICON from "../../../assets/icons/download.svg";
-import STOP_WATCH from "../../../assets/icons/stopwatch.svg";
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { connect } from 'react-redux';
+import '../../../assets/applications/camera.css';
+import DOWNLOAD_ICON from '../../../assets/icons/download.svg';
+import STOP_WATCH from '../../../assets/icons/stopwatch.svg';
 
 const Camera = ({ supplement, triggerIndex, isTriggered, activityList }) => {
   const videoRef = useRef(null);
@@ -26,7 +26,7 @@ const Camera = ({ supplement, triggerIndex, isTriggered, activityList }) => {
           videoRef.current.play();
           setMediaObject(videoStream.getTracks()[0]);
         } catch {
-          console.log("Camera permission not given");
+          console.log('Camera permission not given');
         }
       };
       getVideoStream();
@@ -38,7 +38,7 @@ const Camera = ({ supplement, triggerIndex, isTriggered, activityList }) => {
       setTimeout(() => {
         setIsCaptured(true);
         try {
-          let canvasContext = canvasRef.current.getContext("2d");
+          let canvasContext = canvasRef.current.getContext('2d');
           let height = videoRef.current.offsetHeight;
           let width = videoRef.current.offsetWidth;
           let WHRatio = width / height;
@@ -54,7 +54,7 @@ const Camera = ({ supplement, triggerIndex, isTriggered, activityList }) => {
       setTimeout(() => {
         setTimeout(() => {
           try {
-            let canvasContext = canvasRef.current.getContext("2d");
+            let canvasContext = canvasRef.current.getContext('2d');
             canvasContext.drawImage(videoRef.current, 0, 0, 300, 150);
             setIsCaptured(true);
             setIsCapturing(false);
@@ -76,8 +76,8 @@ const Camera = ({ supplement, triggerIndex, isTriggered, activityList }) => {
     );
   };
   const downloadImage = () => {
-    const link = document.createElement("a");
-    link.download = "camera-screenshot.png";
+    const link = document.createElement('a');
+    link.download = 'camera-screenshot.png';
     link.href = canvasRef.current.toDataURL();
     link.click();
   };
@@ -134,7 +134,7 @@ const Camera = ({ supplement, triggerIndex, isTriggered, activityList }) => {
       </div>
       <div
         className="captured-image"
-        style={{ display: isCaptured ? "block" : "none" }}
+        style={{ display: isCaptured ? 'block' : 'none' }}
       >
         {isCaptured && (
           <div className="image-download-button-canvas" onClick={downloadImage}>

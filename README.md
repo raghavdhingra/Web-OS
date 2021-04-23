@@ -1,4 +1,4 @@
-Test live: https://test.raghavdhingra.com
+Test live: https://raghavdhingra.com
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

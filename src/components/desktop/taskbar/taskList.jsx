@@ -117,29 +117,6 @@ const TaskList = ({
             </div>
           </>
         )}
-        {/* {activityList && 
-          activityList.map((activity, index) =>
-            activity && activity.isLoading ? (
-              <div
-                className="task-listing-activity centralise"
-                title={activity.name}
-                key={`activity-${index}`}
-              >
-                <div className="task-list-inner-grid">
-                  <svg height="20px" width="20px" className="loader-rotate">
-                    <circle className="loader-sm" />
-                  </svg>
-                  <div className="centralise">{activity.name} &nbsp;</div>
-                  <div
-                    className="centralise cursor-pointer"
-                    onClick={() => showDialog(activity.name, true)}
-                  >
-                    &times;
-                  </div>
-                </div>
-              </div>
-            ) : null
-          )} */}
       </div>
     </>
   );

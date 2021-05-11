@@ -42,7 +42,6 @@ const Camera = ({ supplement, triggerIndex, isTriggered, activityList }) => {
           let height = videoRef.current.offsetHeight;
           let width = videoRef.current.offsetWidth;
           let WHRatio = width / height;
-          // console.log(height, width);
           canvasContext.drawImage(videoRef.current, 0, 0, 300, 300 / WHRatio);
           setIsCapturing(false);
         } catch (err) {

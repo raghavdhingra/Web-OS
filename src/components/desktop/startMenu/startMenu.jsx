@@ -76,28 +76,30 @@ const StartMenu = ({ createActivity, changeStartMenu }) => {
               />
             </div>
           </div>
-          <div className="start-application-container">
-            {applicationArray && applicationArray.length ? (
-              applicationArray.map(
-                (app, index) =>
-                  app && (
-                    <StartItem
-                      key={`nav-list-${index}`}
-                      clickTask={() => startItemClick(app)}
-                    >
-                      <img
-                        src={app.image}
-                        className="nav-item-image"
-                        width={app.bigWidth}
-                        alt={app.name}
-                      />
-                      <div>{app.name}</div>
-                    </StartItem>
-                  )
-              )
-            ) : (
-              <div>No Application Found</div>
-            )}
+          <div>
+            <div className="start-application-container">
+              {applicationArray && applicationArray.length ? (
+                applicationArray.map(
+                  (app, index) =>
+                    app && (
+                      <StartItem
+                        key={`nav-list-${index}`}
+                        clickTask={() => startItemClick(app)}
+                      >
+                        <img
+                          src={app.image}
+                          className="nav-item-image"
+                          width={app.bigWidth}
+                          alt={app.name}
+                        />
+                        <div>{app.name}</div>
+                      </StartItem>
+                    )
+                )
+              ) : (
+                <div>No Application Found</div>
+              )}
+            </div>
           </div>
           <div className="start-menu-footer-grid">
             <div

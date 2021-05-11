@@ -61,6 +61,14 @@ export const applications = {
   ],
   socialApps: [
     {
+      name: 'Archive',
+      key: 'archive',
+      image: ARCHIVE_IMAGE,
+      width: width1,
+      bigWidth: width3,
+      link: 'https://archive.raghavdhingra.com',
+    },
+    {
       name: 'Portfolio',
       key: 'portfolio',
       width: width1,
@@ -75,14 +83,6 @@ export const applications = {
       bigWidth: width3,
       image: PROJECT_IMAGE,
       link: 'https://portfolio.raghavdhingra.com/projects',
-    },
-    {
-      name: 'Archive',
-      key: 'archive',
-      image: ARCHIVE_IMAGE,
-      width: width1,
-      bigWidth: width3,
-      link: 'https://archive.raghavdhingra.com',
     },
   ],
   defaultApps: [

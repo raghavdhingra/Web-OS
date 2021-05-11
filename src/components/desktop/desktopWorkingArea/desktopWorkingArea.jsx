@@ -10,6 +10,7 @@ import { createActivity } from '../../../actions/createActivityAction';
 import '../../../assets/desktop/desktopWorkingArea.css';
 import {
   resetToDefault,
+  changeStartMenu,
   toggleFullScreen,
 } from '../../../actions/desktopActions';
 import DialogBox from '../dialogBox/dialogBox';
@@ -48,6 +49,7 @@ const DesktopWorkingArea = ({
   isFullScreen,
   toggleFullScreen,
   isStartMenuOpen,
+  changeStartMenu,
 }) => {
   const desktopWorkingRef = useRef(null);
   const [newDir, setNewDir] = useState({
@@ -66,7 +68,7 @@ const DesktopWorkingArea = ({
   const contextMenuHeight = 232;
 
   const contextArray = [
-    { name: 'Menu', onClick: () => {} },
+    { name: 'Menu', onClick: () => changeStartMenu(!isStartMenuOpen) },
     { name: 'Terminal', onClick: () => createActivity({ name: 'terminal' }) },
     {
       name: 'New File',
@@ -269,4 +271,5 @@ export default connect(mapStateToProps, {
   resetToDefault,
   toggleFullScreen,
   makeFileAction,
+  changeStartMenu,
 })(DesktopWorkingArea);

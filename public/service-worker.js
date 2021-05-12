@@ -1,23 +1,31 @@
-const CACHE_NAME = 'pwa-task-manager';
-var urlsToCache = ['./'];
+var CACHE_NAME = 'pwa-task-manager';
+var urlsToCache = ['/', '/completed'];
 
-self.addEventListener('install', (e) => {
-  e.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
+// Install a service worker
+self.addEventListener('install', (event) => {
+  // Perform install steps
+  event.waitUntil(
+    caches.open(CACHE_NAME).then(function (cache) {
+      console.log('Opened cache');
       return cache.addAll(urlsToCache);
     })
   );
 });
 
+// Cache and return requests
 self.addEventListener('fetch', (event) => {
   event.respondWith(
-    caches.match(event.request).then((response) => {
+    caches.match(event.request).then(function (response) {
       // Cache hit - return response
-      if (response) return response;
+      if (response) {
+        return response;
+      }
       return fetch(event.request);
     })
   );
 });
+
+// Update a service worker
 self.addEventListener('activate', (event) => {
   var cacheWhitelist = ['pwa-task-manager'];
   event.waitUntil(

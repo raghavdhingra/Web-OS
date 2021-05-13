@@ -21,8 +21,8 @@
 }
 .drop-down-inner-container {
   box-shadow: 0 2px 5px 0 #0002;
-  background-color: rgb(255, 255, 255);
-  color: #444;
+  background-color: var(--darkColor);
+  color: var(--lightColor);
   border-radius: 5px;
   transform: translateY(-7px);
   padding: 0.8rem 0;

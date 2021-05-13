@@ -1,17 +1,17 @@
-import React, { useEffect } from "react";
-import { connect } from "react-redux";
-import DropDown from "../dropdown/dropdown";
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import DropDown from '../dropdown/dropdown';
 import {
   batteryStatus,
   onlineStatus,
   networkType,
   dropDownToggle,
   dateStatus,
-} from "../../../actions/desktopActions";
-import Wifi from "../../../assets/icons/wifi.svg";
-import Battery from "../../../assets/icons/battery.svg";
-import Charging from "../../../assets/icons/lighting.svg";
-import DropDownCaret from "../../../assets/icons/dropdown.svg";
+} from '../../../actions/desktopActions';
+import Wifi from '../../../assets/icons/wifi.svg';
+import Battery from '../../../assets/icons/battery.svg';
+import Charging from '../../../assets/icons/lighting.svg';
+import DropDownCaret from '../../../assets/icons/dropdown-white.svg';
 
 const RightTaskPane = ({
   battery,
@@ -42,7 +42,7 @@ const RightTaskPane = ({
       navigator.mozConnection ||
       navigator.webkitConnection;
 
-    networkType(connection ? connection.effectiveType : "4g");
+    networkType(connection ? connection.effectiveType : '4g');
 
     // date status
     dateStatus(new Date());
@@ -81,7 +81,7 @@ const RightTaskPane = ({
           <div className="centralise">
             <div
               className={`right-task-item ${
-                dropDownOpen ? "drop-caret-up" : ""
+                dropDownOpen ? 'drop-caret-up' : ''
               }`}
             >
               <img src={DropDownCaret} alt="dropdown" width="10px" />

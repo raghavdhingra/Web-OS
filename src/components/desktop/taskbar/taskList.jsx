@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { connect } from "react-redux";
-import DropDownCaret from "../../../assets/icons/dropdown.svg";
-import { removeActivity } from "../../../actions/activityActions";
-import { activityDropDownToggle } from "../../../actions/desktopActions";
-import DialogBox from "../dialogBox/dialogBox";
-import "../../../assets/desktop/taskList.css";
+import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
+import DropDownCaret from '../../../assets/icons/dropdown.svg';
+import { removeActivity } from '../../../actions/activityActions';
+import { activityDropDownToggle } from '../../../actions/desktopActions';
+import DialogBox from '../dialogBox/dialogBox';
+import '../../../assets/desktop/taskList.css';
 
 const TaskList = ({
   removeActivity,
@@ -12,7 +12,7 @@ const TaskList = ({
   activityDropDown,
   activityDropDownToggle,
 }) => {
-  const [activityName, setActivityName] = useState("");
+  const [activityName, setActivityName] = useState('');
   const [dialogOpen, setDialogOpen] = useState(false);
   const showDialog = (name, isOpen) => {
     setActivityName(name);
@@ -36,17 +36,17 @@ const TaskList = ({
     <>
       <DialogBox
         onSuccess={toggleActivity}
-        onCancel={() => showDialog("", false)}
+        onCancel={() => showDialog('', false)}
         isOpen={dialogOpen}
-        successText={"End Task"}
+        successText={'End Task'}
         heading={activityName}
-        body={"Are you sure, you want to end the task?"}
+        body={'Are you sure, you want to end the task?'}
       />
       <div className="task-list-container">
         <div className="heading centralise">Tasks</div>
         <div
           className={`task-listing-activity cursor-pointer ${
-            activityDropDown ? "task-listing-activity-active" : ""
+            activityDropDown ? 'task-listing-activity-active' : ''
           }`}
           onClick={() => activityDropDownToggle(!activityDropDown)}
         >
@@ -98,13 +98,11 @@ const TaskList = ({
                               <span></span>
                             )}
                             <div className="centralise">{activity.name}</div>
-                            <div className="centralise">
-                              <div
-                                className="centralise activity-close-btn"
-                                onClick={() => showDialog(activity.name, true)}
-                              >
-                                &times;
-                              </div>
+                            <div
+                              className="centralise activity-close-btn"
+                              onClick={() => showDialog(activity.name, true)}
+                            >
+                              &times;
                             </div>
                           </div>
                         </div>

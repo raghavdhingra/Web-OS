@@ -33,25 +33,25 @@
   r: 5px;
   cy: 10px;
   cx: 10px;
-  stroke: #000;
+  stroke: var(--black);
   stroke-width: 2px;
   stroke-dasharray: 20 8;
-  fill: #0000;
+  fill: var(--transparent);
 }
 .loader-sm-2 {
   r: 5px;
   cy: 8px;
   cx: 8px;
-  stroke: #fff;
+  stroke: var(--white);
   stroke-width: 2px;
   stroke-dasharray: 20 8;
-  fill: #0000;
+  fill: var(--transparent);
 }
 .loader-lg {
   r: 10px;
   cy: 20px;
   cx: 20px;
-  stroke: #fff;
+  stroke: var(--white);
   stroke-width: 5px;
   fill: #0000;
   stroke-dasharray: 30 20;
@@ -87,15 +87,15 @@
   transform: translateY(-2px);
 }
 .activity-close-btn {
-  height: 0.81rem;
-  width: 0.81rem;
+  height: 16px;
+  width: 16px;
   text-align: center;
   border-radius: 50%;
-  color: #212121;
+  color: var(--lightColor);
   cursor: pointer;
   transition: 0.2s ease;
 }
 .activity-close-btn:hover {
-  background-color: #ee5123;
-  color: #fff;
+  background-color: var(--orangeColor);
+  color: var(--white);
 }

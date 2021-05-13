@@ -65,7 +65,7 @@ const DesktopWorkingArea = ({
     if (desktopWorkingRef && desktopWorkingRef.current)
       setWorkingAreaHeight(desktopWorkingRef.current.clientHeight);
   }, [desktopWorkingRef]);
-  const contextMenuHeight = 232;
+  const contextMenuHeight = 238;
 
   const contextArray = [
     { name: 'Menu', onClick: () => changeStartMenu(!isStartMenuOpen) },

@@ -46,11 +46,12 @@
   position: absolute;
   height: 300px;
   width: 230px;
-  color: #212121;
-  background-color: #fffc;
-  border-radius: 3px;
-  box-shadow: 0 0 5px 0 #0006;
+  color: #bbc2c0;
+  background-color: #393f3f;
+  border-radius: 5px;
+  box-shadow: 0 0 10px 0 #0006;
   animation: opacAnim 0.2s ease;
+  overflow: hidden;
 }
 @keyframes opacAnim {
   from {
@@ -63,11 +64,11 @@
   }
 }
 .context-menu-content {
-  padding: 0.4rem 1rem;
+  padding: 0.5rem 1rem;
   box-sizing: border-box;
-  margin: 0.1rem 0;
   cursor: pointer;
   transition: 0.2s ease;
+  border-radius: 5px;
 }
 .context-menu-content:hover {
   background-color: rgb(234, 84, 33, 0.95);

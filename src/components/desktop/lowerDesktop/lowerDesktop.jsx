@@ -40,18 +40,21 @@ const LowerDesktop = ({
   );
 
   return (
-    <div className="lower-desktop-grid" onClick={closeDropDown}>
-      <div className="left-navigation-bar">
+    <div className='lower-desktop-grid' onClick={closeDropDown}>
+      <div className='left-navigation-bar'>
         <div>
           {applications.defaultApps.map((app, index) => (
             <NavItem
               key={`nav-list-${index}`}
-              clickTask={() => createActivity({ name: app.key })}
+              clickTask={() => {
+                changeStartMenu(false);
+                createActivity({ name: app.key });
+              }}
               hightlight={hightlightApp(app.name)}
             >
               <img
                 src={app.image}
-                className="nav-item-image"
+                className='nav-item-image'
                 width={app.width}
                 alt={app.name}
               />
@@ -61,12 +64,12 @@ const LowerDesktop = ({
         <div>
           <NavItem hightlight={isStartMenuOpen}>
             <svg
-              height="50px"
-              width="50px"
-              className="start-icon-container"
+              height='50px'
+              width='50px'
+              className='start-icon-container'
               onClick={() => changeStartMenu(!isStartMenuOpen)}
             >
-              <circle cx="25px" cy="25px" className="start-icon-svg" />
+              <circle cx='25px' cy='25px' className='start-icon-svg' />
             </svg>
           </NavItem>
         </div>

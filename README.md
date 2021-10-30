@@ -4,6 +4,8 @@ Production build: https://raghavdhingra.com
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+Developers favourite operating system Linux is now available for Web. Check out linux based portfolio here - https://raghavdhingra.com
+
 ## Available Scripts
 
 In the project directory, you can run:

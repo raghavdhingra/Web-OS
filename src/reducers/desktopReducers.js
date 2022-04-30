@@ -5,7 +5,7 @@ const initialState = {
   fontStyle: 1,
   brightness: 1,
   dropDownOpen: false,
-  singleClickIcon: false,
+  singleClickIcon: true,
   isFullScreen: false,
   isStartMenuOpen: false,
   battery: {
@@ -56,7 +56,7 @@ const desktopReducers = (state = initialState, action) => {
         fontStyle: 1,
         dropDownOpen: false,
         activityDropDown: false,
-        singleClickIcon: false,
+        singleClickIcon: true,
         isFullScreen: false,
       };
     }

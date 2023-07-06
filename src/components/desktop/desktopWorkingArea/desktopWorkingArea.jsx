@@ -1,29 +1,29 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import DesktopIcon from './desktopIcon';
-import ContextMenu from './ContextMenu';
-import { connect } from 'react-redux';
-import Explorer from '../explorer/explorer';
-import TextEditor from '../../applications/textEditor/textEditor';
-import FOLDER_IMAGE from '../../../assets/icons/folder.svg';
-import FILE_IMAGE from '../../../assets/icons/file.svg';
-import { createActivity } from '../../../actions/createActivityAction';
-import '../../../assets/desktop/desktopWorkingArea.css';
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import DesktopIcon from "./desktopIcon";
+import ContextMenu from "./ContextMenu";
+import { connect } from "react-redux";
+import Explorer from "../explorer/explorer";
+import TextEditor from "../../applications/textEditor/textEditor";
+import FOLDER_IMAGE from "../../../assets/icons/folder.svg";
+import FILE_IMAGE from "../../../assets/icons/file.svg";
+import { createActivity } from "../../../actions/createActivityAction";
+import "../../../assets/desktop/desktopWorkingArea.css";
 import {
   resetToDefault,
   changeStartMenu,
   toggleFullScreen,
-} from '../../../actions/desktopActions';
-import DialogBox from '../dialogBox/dialogBox';
+} from "../../../actions/desktopActions";
+import DialogBox from "../dialogBox/dialogBox";
 import {
   makeDirectoryAction,
   makeFileAction,
-} from '../../../actions/fileSystemActions';
+} from "../../../actions/fileSystemActions";
 
 const LinkFooter = ({ system }) => {
   return (
-    <div className="link-footer">
-      Open in new Tab:{' '}
-      <a href={system.link} target="_blank" rel="noreferrer">
+    <div className='link-footer'>
+      Open in new Tab:{" "}
+      <a href={system.link} target='_blank' rel='noreferrer'>
         {system.link}
       </a>
     </div>
@@ -34,7 +34,7 @@ const IframeContainer = ({ system }) => {
     <iframe
       src={system.link}
       title={system.name}
-      className="portfolio-container-iframe"
+      className='portfolio-container-iframe'
     />
   );
 };
@@ -55,7 +55,7 @@ const DesktopWorkingArea = ({
   const [newDir, setNewDir] = useState({
     open: false,
     isFolder: false,
-    name: '',
+    name: "",
   });
   const [contextShown, setContextShown] = useState(false);
   const [resetSettingsOpen, setResetSettingsOpen] = useState(false);
@@ -68,25 +68,25 @@ const DesktopWorkingArea = ({
   const contextMenuHeight = 238;
 
   const contextArray = [
-    { name: 'Menu', onClick: () => changeStartMenu(!isStartMenuOpen) },
-    { name: 'Terminal', onClick: () => createActivity({ name: 'terminal' }) },
+    { name: "Menu", onClick: () => changeStartMenu(!isStartMenuOpen) },
+    { name: "Terminal", onClick: () => createActivity({ name: "terminal" }) },
     {
-      name: 'New File',
-      onClick: () => setNewDir({ open: true, isFolder: false, name: '' }),
+      name: "New File",
+      onClick: () => setNewDir({ open: true, isFolder: false, name: "" }),
     },
     {
-      name: 'New Folder',
-      onClick: () => setNewDir({ open: true, isFolder: true, name: '' }),
+      name: "New Folder",
+      onClick: () => setNewDir({ open: true, isFolder: true, name: "" }),
     },
     {
-      name: 'Customise Display',
-      onClick: () => createActivity({ name: 'settings' }),
+      name: "Customise Display",
+      onClick: () => createActivity({ name: "settings" }),
     },
     {
-      name: isFullScreen ? 'Exit Full Screen' : 'Enter Full Screen',
+      name: isFullScreen ? "Exit Full Screen" : "Enter Full Screen",
       onClick: () => toggleFullScreen(),
     },
-    { name: 'Reset Settings', onClick: () => setResetSettingsOpen(true) },
+    { name: "Reset Settings", onClick: () => setResetSettingsOpen(true) },
   ];
 
   const resetSuccess = () => {
@@ -96,12 +96,12 @@ const DesktopWorkingArea = ({
   const iconChanger = (system) => {
     return system.icon
       ? system.icon
-      : system.type === 'folder'
+      : system.type === "folder"
       ? FOLDER_IMAGE
       : FILE_IMAGE;
   };
   const startTask = (system) => {
-    if (system.type === 'file') {
+    if (system.type === "file") {
       if (system.link) {
         if (system.inPage) {
           createActivity({
@@ -125,11 +125,11 @@ const DesktopWorkingArea = ({
       }
     } else {
       // File Explorer Event
-      console.log('Open File Explorer');
+      console.log("Open File Explorer");
     }
   };
   useEffect(() => {
-    desktopWorkingRef.current.addEventListener('contextmenu', (e) => {
+    desktopWorkingRef.current.addEventListener("contextmenu", (e) => {
       try {
         e.preventDefault();
         setContextShown(false);
@@ -153,16 +153,16 @@ const DesktopWorkingArea = ({
     if (newDir.name) {
       if (newDir.isFolder)
         makeDirectoryAction({
-          pathArray: ['desktop'],
+          pathArray: ["desktop"],
           folderName: newDir.name,
         });
       else
         makeFileAction({
-          pathArray: ['desktop'],
+          pathArray: ["desktop"],
           fileName: newDir.name,
         });
-      setNewDir({ ...newDir, name: '', open: false, isFolder: false });
-    } else alert('Please Enter a name');
+      setNewDir({ ...newDir, name: "", open: false, isFolder: false });
+    } else alert("Please Enter a name");
   };
   const renderDesktopIcons = useCallback(
     ({ allIcons }) => {
@@ -191,7 +191,7 @@ const DesktopWorkingArea = ({
                     key={`desktop-icon-${index}`}
                     icon={iconChanger(system)}
                     name={system.name}
-                    width={'60px'}
+                    width={"60px"}
                     clickTask={() => startTask(system)}
                   />
                 )
@@ -206,26 +206,26 @@ const DesktopWorkingArea = ({
   );
   return (
     // No Parent component Other than the main div
-    <div className="desktop-area-container" ref={desktopWorkingRef}>
+    <div className='desktop-area-container' ref={desktopWorkingRef}>
       <DialogBox
         onSuccess={resetSuccess}
         onCancel={() => setResetSettingsOpen(false)}
         isOpen={resetSettingsOpen}
-        successText={'Reset'}
-        heading={'Reset Settings'}
-        body={'Sure! You want to reset to your default settings?'}
+        successText={"Reset"}
+        heading={"Reset Settings"}
+        body={"Sure! You want to reset to your default settings?"}
       />
       <DialogBox
         onSuccess={makeNewDir}
         onCancel={() => setNewDir(false)}
         isOpen={newDir.open}
-        successText={'Save'}
-        heading={`New ${newDir.isFolder ? 'Folder' : 'File'}`}
+        successText={"Save"}
+        heading={`New ${newDir.isFolder ? "Folder" : "File"}`}
         body={
           <input
-            type="text"
-            className="new-file-folder-input"
-            placeholder={`${newDir.isFolder ? 'Folder' : 'File'} Name`}
+            type='text'
+            className='new-file-folder-input'
+            placeholder={`${newDir.isFolder ? "Folder" : "File"} Name`}
             onChange={(e) => setNewDir({ ...newDir, name: e.target.value })}
           />
         }

@@ -3,9 +3,10 @@
   width: 100%;
 }
 .camera-video-container {
-  object-fit: cover;
+  object-fit: contain;
   height: 100%;
   width: 100%;
+  transform: rotateY(180deg);
 }
 .camera-container-overlay {
   height: calc(100% - 31px);
@@ -34,16 +35,16 @@
   stroke-width: 0.3rem;
   transition: 0.2s ease-in-out;
   fill: #0000;
-  cx: 2rem;
-  cy: 2rem;
-  r: 1.5rem;
 }
+
 .camera-capture-button:hover {
   stroke-width: 0.5rem;
 }
+
 .camera-capture-button-svg:active {
   transform: scale(0.9);
 }
+
 .captured-image {
   position: absolute;
   top: 40px;
@@ -52,12 +53,13 @@
   width: 350px;
   animation: move-amin 5s ease forwards;
   filter: drop-shadow(0 0 5px #0009);
-  border: 0.2rem solid #fff;
-  border-radius: 3px;
+  border: 0.5rem solid #fff8;
+  border-radius: 10px;
 }
 .captured-image-canvas {
   height: 100%;
   width: 100%;
+  /* transform: rotateY(180deg); */
 }
 .captured-image:hover .captured-image::after {
   position: absolute;
@@ -89,12 +91,13 @@
 }
 .image-download-button-canvas {
   position: absolute;
-  top: 10px;
-  left: 10px;
-  height: 30px;
-  width: 30px;
-  background-color: #ddd;
-  box-shadow: 0 0 3px 0 #0005;
+  z-index: 1;
+  top: 5px;
+  left: 5px;
+  height: 25px;
+  width: 25px;
+  background-color: #fff;
+  box-shadow: 0 0 3px 0 #0003;
   cursor: pointer;
   display: flex;
   flex-direction: column;
@@ -105,14 +108,16 @@
   position: absolute;
   top: 0;
   right: 10px;
+  z-index: 1;
   cursor: pointer;
   color: #fff;
-  font-size: 1.5rem;
+  font-size: 2rem;
   filter: drop-shadow(0 0 2px #0005);
 }
+
 .image-download-button-canvas > img {
   height: auto;
-  width: 18px;
+  width: 14px;
   margin: 0 auto;
 }
 .camera-timer-container {

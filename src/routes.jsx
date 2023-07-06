@@ -1,10 +1,11 @@
-import React, { Component } from "react";
-import { Route, Switch } from "react-router-dom";
-import Error404 from "./components/notFound/error404";
-import Desktop from "./components/desktop/Desktop";
-import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
+import React, { Component } from "react";
+import { Route, Switch, BrowserRouter } from "react-router-dom";
+
 import store from "./store";
+import Desktop from "./components/desktop/Desktop";
+import Error404 from "./components/notFound/error404";
+
 import "./assets/default.css";
 
 class Router extends Component {
@@ -16,7 +17,7 @@ class Router extends Component {
           <Provider store={store}>
             <BrowserRouter>
               <Switch>
-                <Route exact path="/">
+                <Route exact path='/'>
                   <Desktop />
                 </Route>
                 <Route component={Error404}></Route>

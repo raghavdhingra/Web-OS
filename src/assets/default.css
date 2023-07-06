@@ -1,7 +1,7 @@
 /* @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;700&display=swap"); */
-@import url('https://fonts.googleapis.com/css2?family=Potta+One&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Potta+One&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Raleway&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
 
 * {
   margin: 0;
@@ -19,22 +19,22 @@
   --transparent: #0000;
 }
 .font-roboto {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 .font-potta {
-  font-family: 'Potta One', cursive;
+  font-family: "Potta One", cursive;
 }
 .font-raleway {
-  font-family: 'Raleway', sans-serif;
+  font-family: "Raleway", sans-serif;
 }
 .font-lobster {
-  font-family: 'Lobster', cursive;
+  font-family: "Lobster", cursive;
 }
 .font-times {
-  font-family: 'Times New Roman', Times, serif;
+  font-family: "Times New Roman", Times, serif;
 }
 .font-courier {
-  font-family: 'Courier New', Courier, monospace;
+  font-family: "Courier New", Courier, monospace;
 }
 .centralise {
   display: flex;
@@ -66,6 +66,13 @@
   background-color: rgba(234, 84, 33, 0.9);
   border-radius: 10px;
 }
+.button-base {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background-color: #0000;
+}
+
 .container-center {
   padding-right: 15px;
   padding-left: 15px;

@@ -95,7 +95,7 @@ const Camera = ({ supplement, triggerIndex, isTriggered, activityList }) => {
             audio: false,
           });
           videoRef.current.srcObject = videoStream;
-          videoRef.current.play();
+          videoRef.current?.play();
           setMediaObject(videoStream.getTracks()[0]);
         } catch {
           console.log("Camera permission not given");
@@ -103,6 +103,9 @@ const Camera = ({ supplement, triggerIndex, isTriggered, activityList }) => {
       };
       getVideoStream();
     }
+    return () => {
+      if (videoStream) videoStream.getTracks()[0].stop();
+    };
   }, []);
 
   useEffect(() => {

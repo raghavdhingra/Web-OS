@@ -2,6 +2,7 @@ import * as actions from "../actions/types";
 import PROFILE_IMAGE from "../assets/icons/profile.svg";
 import PROJECT_IMAGE from "../assets/icons/project.svg";
 import ARCHIVE_IMAGE from "../assets/icons/archive.svg";
+import USER_IMAGE from "../assets/icons/user.png";
 
 const initialState = {
   fileSystem: [
@@ -13,8 +14,16 @@ const initialState = {
         {
           name: "Portfolio",
           type: "file",
-          icon: PROFILE_IMAGE,
+          icon: USER_IMAGE,
           link: "https://portfolio.raghavdhingra.com",
+          inPage: true,
+          location: ["desktop"],
+        },
+        {
+          name: "Resume",
+          type: "file",
+          icon: PROFILE_IMAGE,
+          link: "https://portfolio.raghavdhingra.com/resume",
           inPage: true,
           location: ["desktop"],
         },
@@ -35,6 +44,9 @@ const initialState = {
           location: ["desktop"],
         },
         { name: "Docs", type: "file", child: "", location: ["desktop"] },
+        // GitHub Sponsor (on desktop, and in navigation bar)
+        // Social link on desktop
+        // Fork the repo
       ],
     },
     {

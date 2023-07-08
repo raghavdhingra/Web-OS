@@ -1,6 +1,7 @@
 import { combineReducers } from "redux";
-import activityReducers from "./activityReducers";
+
 import desktopReducers from "./desktopReducers";
+import activityReducers from "./activityReducers";
 import fileSystemReducers from "./fileSystemReducers";
 
 export default combineReducers({

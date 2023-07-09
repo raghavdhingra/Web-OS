@@ -1,3 +1,5 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/7b2463c6-1999-472c-8135-7faa48dfa3d0/deploy-status)](https://app.netlify.com/sites/raghavdhingra/deploys)
+
 Test live: https://raghavdhinrga.web.app
 
 Production build: https://raghavdhingra.com

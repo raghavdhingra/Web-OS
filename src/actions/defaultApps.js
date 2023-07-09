@@ -19,6 +19,7 @@ import LINKEDIN_IMAGE from "../assets/icons/linkedin.svg";
 import CODEPEN_IMAGE from "../assets/icons/codepen.svg";
 import GMAIL_IMAGE from "../assets/icons/gmail.svg";
 import MEDIUM_IMAGE from "../assets/icons/medium.svg";
+import SPONSOR_IMAGE from "../assets/icons/sponsorship.png";
 
 // const nullFunction = (supplement) => null;
 const width1 = "40px";
@@ -141,7 +142,7 @@ export const applications = {
       link: "https://codepen.io/raghav-dhingra",
     },
     {
-      name: "GMail",
+      name: "G-Mail",
       key: "gmail",
       width: width1,
       bigWidth: width3,
@@ -155,6 +156,14 @@ export const applications = {
       bigWidth: width3,
       image: MEDIUM_IMAGE,
       link: "https://medium.com/@raghav.dhingra15",
+    },
+    {
+      name: "Sponsor",
+      key: "sponsor",
+      width: width1,
+      bigWidth: width3,
+      image: SPONSOR_IMAGE,
+      link: "https://github.com/sponsors/raghavdhingra",
     },
   ],
   defaultApps: [

@@ -23,6 +23,7 @@
 }
 .desktop-icon-text {
   /* display: inline-block; */
+  font-size: 14px;
   width: 75px;
   margin: 0 auto;
   white-space: nowrap;

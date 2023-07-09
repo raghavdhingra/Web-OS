@@ -2,7 +2,10 @@ import * as actions from "../actions/types";
 import PROFILE_IMAGE from "../assets/icons/profile.svg";
 import PROJECT_IMAGE from "../assets/icons/project.svg";
 import ARCHIVE_IMAGE from "../assets/icons/archive.svg";
+import SPONSOR_IMAGE from "../assets/icons/sponsorship.png";
 import USER_IMAGE from "../assets/icons/user.png";
+import FORK_IMAGE from "../assets/icons/transfer.png";
+import GITHUB_IMAGE from "../assets/icons/octocat.svg";
 
 const initialState = {
   fileSystem: [
@@ -44,9 +47,30 @@ const initialState = {
           location: ["desktop"],
         },
         { name: "Docs", type: "file", child: "", location: ["desktop"] },
-        // GitHub Sponsor (on desktop, and in navigation bar)
-        // Social link on desktop
-        // Fork the repo
+        {
+          name: "Follow me",
+          type: "file",
+          icon: GITHUB_IMAGE,
+          link: "https://github.com/raghavdhingra",
+          inPage: false,
+          location: ["desktop"],
+        },
+        {
+          name: "Clone Repo",
+          type: "file",
+          icon: FORK_IMAGE,
+          link: "https://github.com/raghavdhingra/Web-OS/fork",
+          inPage: false,
+          location: ["desktop"],
+        },
+        {
+          name: "Sponsor",
+          type: "file",
+          icon: SPONSOR_IMAGE,
+          link: "https://github.com/sponsors/raghavdhingra",
+          inPage: false,
+          location: ["desktop"],
+        },
       ],
     },
     {

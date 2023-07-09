@@ -23,7 +23,7 @@ const initialState = {
           name: "Resume",
           type: "file",
           icon: PROFILE_IMAGE,
-          link: "https://portfolio.raghavdhingra.com/resume",
+          link: "https://portfolio.raghavdhingra.com/static/assets/resume.pdf",
           inPage: true,
           location: ["desktop"],
         },
